@@ -1,10 +1,10 @@
-package com.heyzeusv.rickmortyverse
+package com.heyzeusv.rickmortyverse.views
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.heyzeusv.rickmortyverse.R
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,6 +15,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        navController = Navigation.findNavController(this, R.id.fragment)
+        navController = Navigation.findNavController(this,
+            R.id.fragment
+        )
     }
 }

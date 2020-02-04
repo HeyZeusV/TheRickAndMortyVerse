@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.heyzeusv.rickmortyverse.HomeFragment"
+        android:name="com.heyzeusv.rickmortyverse.views.HomeFragment"
         android:label="Home" >
 
         <action
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/characterPageFragment"
-        android:name="com.heyzeusv.rickmortyverse.CharacterPageFragment"
+        android:name="com.heyzeusv.rickmortyverse.views.CharacterPageFragment"
         android:label="Character Page">
 
         <action
@@ -27,7 +27,7 @@
 
     <fragment
         android:id="@+id/characterDetailFragment"
-        android:name="com.heyzeusv.rickmortyverse.CharacterDetailFragment"
+        android:name="com.heyzeusv.rickmortyverse.views.CharacterDetailFragment"
         android:label="Character Detail">
 
     </fragment>

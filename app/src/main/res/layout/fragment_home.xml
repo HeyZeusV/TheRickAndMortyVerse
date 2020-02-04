@@ -6,7 +6,7 @@
     <data>
         <variable
             name="homeVM"
-            type="com.heyzeusv.rickmortyverse.HomeViewModel" />
+            type="com.heyzeusv.rickmortyverse.viewmodels.HomeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

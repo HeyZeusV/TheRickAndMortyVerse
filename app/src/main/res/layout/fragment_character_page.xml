@@ -7,12 +7,19 @@
     <data>
         <variable
             name="charPageVM"
-            type="com.heyzeusv.rickmortyverse.CharacterPageViewModel" />
+            type="com.heyzeusv.rickmortyverse.viewmodels.CharacterPageViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/character_page_epoxy"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ProgressBar
             android:id="@+id/progressBar"

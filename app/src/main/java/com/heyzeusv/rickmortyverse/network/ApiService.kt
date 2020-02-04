@@ -1,6 +1,6 @@
 package com.heyzeusv.rickmortyverse.network
 
-import com.heyzeusv.rickmortyverse.model.Character
+import com.heyzeusv.rickmortyverse.models.Character
 import io.reactivex.Single
 import retrofit2.http.GET
 

@@ -1,4 +1,4 @@
-package com.heyzeusv.rickmortyverse.model
+package com.heyzeusv.rickmortyverse.models
 
 data class CharacterPage(
 

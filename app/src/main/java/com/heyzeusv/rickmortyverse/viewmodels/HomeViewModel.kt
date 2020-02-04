@@ -1,8 +1,9 @@
-package com.heyzeusv.rickmortyverse
+package com.heyzeusv.rickmortyverse.viewmodels
 
 import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.navigation.Navigation
+import com.heyzeusv.rickmortyverse.R
 
 class HomeViewModel : ViewModel() {
 

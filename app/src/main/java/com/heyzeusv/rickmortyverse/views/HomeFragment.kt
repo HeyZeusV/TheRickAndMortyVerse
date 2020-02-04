@@ -1,4 +1,4 @@
-package com.heyzeusv.rickmortyverse
+package com.heyzeusv.rickmortyverse.views
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.heyzeusv.rickmortyverse.viewmodels.HomeViewModel
+import com.heyzeusv.rickmortyverse.R
 import com.heyzeusv.rickmortyverse.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {

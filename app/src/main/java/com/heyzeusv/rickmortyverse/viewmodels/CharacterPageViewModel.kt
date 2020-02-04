@@ -1,4 +1,4 @@
-package com.heyzeusv.rickmortyverse
+package com.heyzeusv.rickmortyverse.viewmodels
 
 import android.view.View
 import androidx.lifecycle.LiveData

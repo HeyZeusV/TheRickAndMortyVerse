@@ -1,6 +1,6 @@
 package com.heyzeusv.rickmortyverse.di.component
 
-import com.heyzeusv.rickmortyverse.CharacterPageViewModel
+import com.heyzeusv.rickmortyverse.viewmodels.CharacterPageViewModel
 import com.heyzeusv.rickmortyverse.di.module.NetworkModule
 import dagger.Component
 import javax.inject.Singleton
