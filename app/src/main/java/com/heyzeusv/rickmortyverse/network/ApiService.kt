@@ -6,6 +6,6 @@ import retrofit2.http.GET
 
 interface ApiService {
 
-    @GET("/character")
+    @GET("character")
     fun getCharacterPage() : Single<List<Character>>
 }
