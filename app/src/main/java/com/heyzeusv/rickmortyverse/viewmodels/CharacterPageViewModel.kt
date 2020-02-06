@@ -3,6 +3,8 @@ package com.heyzeusv.rickmortyverse.viewmodels
 import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.heyzeusv.rickmortyverse.models.Character
+import com.heyzeusv.rickmortyverse.models.CharacterPage
 import com.heyzeusv.rickmortyverse.network.ApiService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -21,6 +23,10 @@ class CharacterPageViewModel : InjectViewModel() {
     val loadingVisibility : LiveData<Int>
         get() = _loadingVisibility
 
+    private val _charPage : MutableLiveData<CharacterPage> = MutableLiveData()
+    val charPage : LiveData<CharacterPage>
+        get() = _charPage
+
     @Suppress("UnstableApiUsage")
     private fun loadCharacters() {
 
@@ -30,7 +36,7 @@ class CharacterPageViewModel : InjectViewModel() {
             .doOnSubscribe { onRetrieveCharPageStart() }
             .doOnTerminate { onRetrieveCharPageFinish() }
             .subscribe(
-                { onRetrieveCharPageSuccess() },
+                { result -> onRetrieveCharPageSuccess(result) },
                 { onRetrieveCharPageError() }
             )
     }
@@ -46,8 +52,9 @@ class CharacterPageViewModel : InjectViewModel() {
         Timber.v("HERE!")
     }
 
-    private fun onRetrieveCharPageSuccess() {
+    private fun onRetrieveCharPageSuccess(charPage : CharacterPage) {
 
+        _charPage.value = charPage
     }
 
     private fun onRetrieveCharPageError() {

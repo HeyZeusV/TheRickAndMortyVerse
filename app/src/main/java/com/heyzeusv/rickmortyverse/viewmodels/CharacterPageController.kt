@@ -14,6 +14,7 @@ class CharacterPageController : TypedEpoxyController<CharacterPage>() {
 
                id(it.id)
                character(it)
+
             }
         }
     }
