@@ -25,3 +25,10 @@ data class Location(
     val name : String,
     val url  : String
 )
+
+data class CharacterNameImage(
+
+    val id    : Int,
+    val name  : String,
+    val image : String
+)

@@ -3,13 +3,11 @@ package com.heyzeusv.rickmortyverse.viewmodels
 import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.heyzeusv.rickmortyverse.models.Character
 import com.heyzeusv.rickmortyverse.models.CharacterPage
 import com.heyzeusv.rickmortyverse.network.ApiService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import timber.log.Timber
 import javax.inject.Inject
 
 class CharacterPageViewModel : InjectViewModel() {
@@ -33,11 +31,11 @@ class CharacterPageViewModel : InjectViewModel() {
         subscription = apiService.getCharacterPage()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { onRetrieveCharPageStart() }
+            .doOnSubscribe { onRetrieveCharPageStart()  }
             .doOnTerminate { onRetrieveCharPageFinish() }
             .subscribe(
-                { result -> onRetrieveCharPageSuccess(result) },
-                { onRetrieveCharPageError() }
+                    { result : CharacterPage -> onRetrieveCharPageSuccess(result) },
+                    { onRetrieveCharPageError() }
             )
     }
 
@@ -49,7 +47,6 @@ class CharacterPageViewModel : InjectViewModel() {
     private fun onRetrieveCharPageFinish() {
 
         _loadingVisibility.value = View.INVISIBLE
-        Timber.v("HERE!")
     }
 
     private fun onRetrieveCharPageSuccess(charPage : CharacterPage) {

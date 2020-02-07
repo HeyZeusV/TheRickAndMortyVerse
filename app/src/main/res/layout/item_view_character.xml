@@ -8,7 +8,10 @@
         
         <variable
             name="character"
-            type="com.heyzeusv.rickmortyverse.models.Character" />
+            type="com.heyzeusv.rickmortyverse.models.CharacterNameImage" />
+        <variable
+            name="onCharClicked"
+            type="android.view.View.OnClickListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -18,6 +21,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginEnd="4dp"
         android:layout_marginBottom="4dp"
+        android:onClick="@{onCharClicked}"
         app:cardCornerRadius="4dp"
         app:cardUseCompatPadding="true">
 

@@ -12,7 +12,11 @@
 
         <action
             android:id="@+id/action_home_to_characterPage"
-            app:destination="@id/characterPageFragment" />
+            app:destination="@id/characterPageFragment"
+            app:enterAnim="@anim/fragment_close_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
     </fragment>
 
     <fragment
@@ -22,14 +26,21 @@
 
         <action
             android:id="@+id/action_characterPage_to_characterDetail"
-            app:destination="@id/characterDetailFragment"/>
+            app:destination="@id/characterDetailFragment"
+            app:enterAnim="@anim/fragment_close_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_open_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
     </fragment>
 
     <fragment
         android:id="@+id/characterDetailFragment"
         android:name="com.heyzeusv.rickmortyverse.views.CharacterDetailFragment"
         android:label="Character Detail">
-
+        <argument
+            android:name="characterId"
+            app:argType="integer"
+            android:defaultValue="1" />
     </fragment>
 
 </navigation>

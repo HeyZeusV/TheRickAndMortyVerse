@@ -21,9 +21,10 @@ class CharacterPageFragment : Fragment() {
     // DataBinding
     private lateinit var binding : FragmentCharacterPageBinding
 
+    // EpoxyController
     private val charPageController = CharacterPageController()
 
-    // ViewModel
+    // ViewModels
     private val charPageVM : CharacterPageViewModel by viewModels()
 
     // NavController

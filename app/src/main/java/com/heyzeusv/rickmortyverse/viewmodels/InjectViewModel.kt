@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import com.heyzeusv.rickmortyverse.di.component.DaggerViewModelComponent
 import com.heyzeusv.rickmortyverse.di.component.ViewModelComponent
 import com.heyzeusv.rickmortyverse.di.module.NetworkModule
-import com.heyzeusv.rickmortyverse.viewmodels.CharacterPageViewModel
 
 /**
  *  Base class for ViewModels that will required dependency injections.
@@ -23,7 +22,8 @@ abstract class InjectViewModel : ViewModel() {
 
         when (this) {
 
-            is CharacterPageViewModel -> injector.inject(this)
+            is CharacterPageViewModel   -> injector.inject(this)
+            is CharacterDetailViewModel -> injector.inject(this)
         }
     }
 
