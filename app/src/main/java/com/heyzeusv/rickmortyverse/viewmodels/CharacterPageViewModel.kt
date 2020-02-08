@@ -34,30 +34,18 @@ class CharacterPageViewModel : InjectViewModel() {
             .doOnSubscribe { onRetrieveCharPageStart()  }
             .doOnTerminate { onRetrieveCharPageFinish() }
             .subscribe(
-                    { result : CharacterPage -> onRetrieveCharPageSuccess(result) },
-                    { onRetrieveCharPageError() }
+                { result : CharacterPage -> onRetrieveCharPageSuccess(result) },
+                { onRetrieveCharPageError() }
             )
     }
 
-    private fun onRetrieveCharPageStart() {
+    private fun onRetrieveCharPageStart() { _loadingVisibility.value = View.VISIBLE }
 
-        _loadingVisibility.value = View.VISIBLE
-    }
+    private fun onRetrieveCharPageFinish() { _loadingVisibility.value = View.INVISIBLE }
 
-    private fun onRetrieveCharPageFinish() {
+    private fun onRetrieveCharPageSuccess(charPage : CharacterPage) { _charPage.value = charPage }
 
-        _loadingVisibility.value = View.INVISIBLE
-    }
-
-    private fun onRetrieveCharPageSuccess(charPage : CharacterPage) {
-
-        _charPage.value = charPage
-    }
-
-    private fun onRetrieveCharPageError() {
-
-
-    }
+    private fun onRetrieveCharPageError() { }
 
     override fun onCleared() {
         super.onCleared()

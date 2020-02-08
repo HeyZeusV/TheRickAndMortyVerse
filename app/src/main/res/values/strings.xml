@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">The Rick And Morty Verse</string>
     <string name="home_character">Character</string>
+    <string name="char_detail_name">Name: %s</string>
 </resources>

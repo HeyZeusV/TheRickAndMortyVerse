@@ -4,6 +4,7 @@ import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.heyzeusv.rickmortyverse.models.Character
+import com.heyzeusv.rickmortyverse.models.EpisodeNameCode
 import com.heyzeusv.rickmortyverse.network.ApiService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -16,7 +17,8 @@ class CharacterDetailViewModel : InjectViewModel() {
     @Inject
     lateinit var apiService : ApiService
 
-    private lateinit var subscription : Disposable
+    private lateinit var charSubscription : Disposable
+    private lateinit var epiSubscription  : Disposable
 
     private val _loadingVisibility : MutableLiveData<Int> = MutableLiveData()
     val loadingVisibility : LiveData<Int>
@@ -30,41 +32,59 @@ class CharacterDetailViewModel : InjectViewModel() {
     @Suppress("UnstableApiUsage")
     fun loadCharacter(charId : Int) {
 
-        subscription = apiService.getCharacter(charId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe { onRetrieveCharDetailStart()  }
-                .doOnTerminate { onRetrieveCharDetailFinish() }
-                .subscribe(
-                        { result : Character -> onRetrieveCharDetailSuccess(result) },
-                        { onRetrieveCharDetailError() }
-                )
+        charSubscription = apiService.getCharacter(charId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { onRetrieveCharDetailStart()  }
+            .doOnTerminate { onRetrieveCharDetailFinish() }
+            .subscribe(
+                { result : Character -> onRetrieveCharDetailSuccess(result) },
+                { error  : Throwable -> onRetrieveCharDetailError(error)    }
+            )
     }
 
-    private fun onRetrieveCharDetailStart() {
+    @Suppress("UnstableApiUsage")
+    private fun loadCharEpisodes(episodeIds : List<Int>) {
 
-        _loadingVisibility.value = View.VISIBLE
+        epiSubscription = apiService.getCharEpisodes(episodeIds)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { onRetrieveCharDetailStart() }
+            .doOnTerminate { onRetrieveCharDetailFinish() }
+            .subscribe(
+                { result : List<EpisodeNameCode> -> onRetrieveCharEpisodeSuccess(result)},
+                { error  : Throwable             -> onRetrieveCharDetailError(error)    }
+            )
     }
 
-    private fun onRetrieveCharDetailFinish() {
+    private fun onRetrieveCharDetailStart() { _loadingVisibility.value = View.VISIBLE }
 
-        _loadingVisibility.value = View.INVISIBLE
-    }
+    private fun onRetrieveCharDetailFinish() { _loadingVisibility.value = View.INVISIBLE }
 
     private fun onRetrieveCharDetailSuccess(charDetail : Character) {
 
         _charDetail.value = charDetail
-        Timber.d(_charDetail.value.toString())
+
+        val episodeIds : MutableList<Int> = mutableListOf()
+        charDetail.episode.forEach {
+
+            episodeIds.add(it.substring(40).toInt())
+        }
+        loadCharEpisodes(episodeIds)
     }
 
-    private fun onRetrieveCharDetailError() {
+    private fun onRetrieveCharDetailError(error : Throwable) {
+        Timber.d(error.toString())
+    }
 
+    private fun onRetrieveCharEpisodeSuccess(charEpisodes : List<EpisodeNameCode>) {
 
     }
 
     override fun onCleared() {
         super.onCleared()
 
-        subscription.dispose()
+        charSubscription.dispose()
+        epiSubscription .dispose()
     }
 }

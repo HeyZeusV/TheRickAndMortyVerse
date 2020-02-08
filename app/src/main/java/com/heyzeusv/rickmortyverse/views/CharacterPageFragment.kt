@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.heyzeusv.rickmortyverse.viewmodels.CharacterPageViewModel
 import com.heyzeusv.rickmortyverse.R
 import com.heyzeusv.rickmortyverse.databinding.FragmentCharacterPageBinding
+import com.heyzeusv.rickmortyverse.models.CharacterPage
 import com.heyzeusv.rickmortyverse.viewmodels.CharacterPageController
 
 class CharacterPageFragment : Fragment() {
@@ -42,9 +43,9 @@ class CharacterPageFragment : Fragment() {
         charPageController.spanCount = 2
         layoutManager.spanSizeLookup = charPageController.spanSizeLookup
         binding.characterPageEpoxy.layoutManager = layoutManager
-        binding.characterPageEpoxy.adapter = charPageController.adapter
+        binding.characterPageEpoxy.adapter       = charPageController.adapter
 
-        charPageVM.charPage.observe(viewLifecycleOwner, Observer { charPage ->
+        charPageVM.charPage.observe(viewLifecycleOwner, Observer { charPage : CharacterPage ->
 
             charPageController.setData(charPage)
         })

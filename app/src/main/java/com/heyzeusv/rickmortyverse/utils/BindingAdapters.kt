@@ -8,10 +8,13 @@ import com.bumptech.glide.Glide
  *  DataBinding Custom Binding Adapters.
  */
 @BindingAdapter("setGlideImage")
-fun ImageView.setGlideImage(imageUrl : String) {
+fun ImageView.setGlideImage(imageUrl : String?) {
 
-    Glide
-        .with(context)
-        .load(imageUrl)
-        .into(this)
+    imageUrl?.let {
+
+        Glide
+            .with(context)
+            .load(imageUrl)
+            .into(this)
+    }
 }

@@ -32,3 +32,8 @@ data class CharacterNameImage(
     val name  : String,
     val image : String
 )
+
+data class CharacterPage(
+
+    val results : List<CharacterNameImage>
+)

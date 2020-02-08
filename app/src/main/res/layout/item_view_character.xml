@@ -15,12 +15,13 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
+        style="@style/Widget.MaterialComponents.CardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:onClick="@{onCharClicked}"
         app:cardCornerRadius="4dp"
         app:cardUseCompatPadding="true">
@@ -42,12 +43,12 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:scaleType="centerCrop"
+                android:contentDescription="@{character.name}"
                 app:layout_constraintBottom_toTopOf="@+id/character_iv_name"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:setGlideImage="@{character.image}"
-                tools:ignore="ContentDescription"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
