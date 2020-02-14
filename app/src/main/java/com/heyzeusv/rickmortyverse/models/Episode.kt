@@ -11,3 +11,8 @@ data class EpisodeNameCode(
     val name    : String,
     val episode : String
 )
+
+data class EpisodePage(
+
+    val results : List<EpisodeNameCode>
+)

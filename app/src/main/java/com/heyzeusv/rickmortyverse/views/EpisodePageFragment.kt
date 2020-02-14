@@ -11,22 +11,22 @@ import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
-import com.heyzeusv.rickmortyverse.viewmodels.CharacterPageViewModel
 import com.heyzeusv.rickmortyverse.R
-import com.heyzeusv.rickmortyverse.databinding.FragmentCharacterPageBinding
-import com.heyzeusv.rickmortyverse.models.CharacterPage
-import com.heyzeusv.rickmortyverse.viewmodels.CharacterPageController
+import com.heyzeusv.rickmortyverse.databinding.FragmentEpisodePageBinding
+import com.heyzeusv.rickmortyverse.models.EpisodePage
+import com.heyzeusv.rickmortyverse.viewmodels.EpisodePageController
+import com.heyzeusv.rickmortyverse.viewmodels.EpisodePageViewModel
 
-class CharacterPageFragment : Fragment() {
+class EpisodePageFragment : Fragment() {
 
-    // DataBinding
-    private lateinit var binding : FragmentCharacterPageBinding
+    //DataBinding
+    private lateinit var binding : FragmentEpisodePageBinding
 
     // EpoxyController
-    private val charPageController = CharacterPageController()
+    private val episPageController = EpisodePageController()
 
     // ViewModel
-    private val charPageVM : CharacterPageViewModel by viewModels()
+    private val episPageVM : EpisodePageViewModel by viewModels()
 
     // NavController
     private lateinit var navController : NavController
@@ -35,19 +35,19 @@ class CharacterPageFragment : Fragment() {
         inflater : LayoutInflater, container : ViewGroup?, savedInstanceState : Bundle?) : View? {
 
         binding = DataBindingUtil.inflate(inflater,
-            R.layout.fragment_character_page, container, false)
+            R.layout.fragment_episode_page, container, false)
         binding.lifecycleOwner = activity
-        binding.charPageVM     = charPageVM
+        binding.episPageVM     = episPageVM
 
         val layoutManager = GridLayoutManager(context, 2)
-        charPageController.spanCount = 2
-        layoutManager.spanSizeLookup = charPageController.spanSizeLookup
-        binding.characterPageEpoxy.layoutManager = layoutManager
-        binding.characterPageEpoxy.adapter       = charPageController.adapter
+        episPageController.spanCount = 2
+        layoutManager.spanSizeLookup = episPageController.spanSizeLookup
+        binding.episodePageEpoxy.layoutManager = layoutManager
+        binding.episodePageEpoxy.adapter       = episPageController.adapter
 
-        charPageVM.charPage.observe(viewLifecycleOwner, Observer { charPage : CharacterPage ->
+        episPageVM.episPage.observe(viewLifecycleOwner, Observer { episPage : EpisodePage ->
 
-            charPageController.setData(charPage)
+            episPageController.setData(episPage)
         })
 
         return binding.root

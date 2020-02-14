@@ -9,4 +9,7 @@ class HomeViewModel : ViewModel() {
 
     val characterOnClick : View.OnClickListener =
         Navigation.createNavigateOnClickListener(R.id.action_home_to_characterPage)
+
+    val episodeOnClick : View.OnClickListener =
+        Navigation.createNavigateOnClickListener(R.id.action_home_to_episodePage)
 }

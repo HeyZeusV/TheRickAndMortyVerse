@@ -24,6 +24,7 @@ abstract class InjectViewModel : ViewModel() {
 
             is CharacterPageViewModel   -> injector.inject(this)
             is CharacterDetailViewModel -> injector.inject(this)
+            is EpisodePageViewModel     -> injector.inject(this)
         }
     }
 

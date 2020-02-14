@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">The Rick And Morty Verse</string>
-    <string name="home_character">Character</string>
+    <string name="home_characters">Characters</string>
     <string name="char_detail_name">Name: %s</string>
     <string name="char_detail_status">Status: %s</string>
     <string name="char_detail_species">Species: %s</string>
@@ -8,4 +8,5 @@
     <string name="char_detail_gender">Gender: %s</string>
     <string name="char_detail_origin">Origin: %s</string>
     <string name="char_detail_location">Location: %s</string>
+    <string name="home_episodes">Episodes</string>
 </resources>

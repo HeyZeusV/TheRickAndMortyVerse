@@ -3,13 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-    
+
     <data>
         <variable
-            name="character"
-            type="com.heyzeusv.rickmortyverse.models.CharacterNameImage" />
+            name="episode"
+            type="com.heyzeusv.rickmortyverse.models.EpisodeNameCode" />
         <variable
-            name="onCharClicked"
+            name="onEpisClicked"
             type="android.view.View.OnClickListener" />
     </data>
 
@@ -21,7 +21,7 @@
         android:layout_marginTop="2dp"
         android:layout_marginEnd="2dp"
         android:layout_marginBottom="2dp"
-        android:onClick="@{onCharClicked}"
+        android:onClick="@{onEpisClicked}"
         app:cardCornerRadius="4dp"
         app:cardUseCompatPadding="true">
 
@@ -33,38 +33,35 @@
             android:layout_marginEnd="4dp"
             android:layout_marginBottom="4dp">
 
-            <ImageView
-                android:id="@+id/character_iv_image"
-                android:layout_width="0dp"
-                android:layout_height="150dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:scaleType="centerCrop"
-                android:contentDescription="@{character.name}"
-                app:layout_constraintBottom_toTopOf="@+id/character_iv_name"
+            <TextView
+                android:id="@+id/episode_iv_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@{episode.episode}"
+                android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:setGlideImage="@{character.image}"
-                tools:srcCompat="@tools:sample/avatars" />
+                tools:text="S99E99"/>
 
             <TextView
-                android:id="@+id/character_iv_name"
-                android:layout_width="wrap_content"
+                android:id="@+id/episode_iv_name"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
                 android:gravity="center"
-                android:lines="2"
-                android:text="@{character.name}"
-                android:textSize="24sp"
+                android:lines="4"
+                android:text="@{episode.name}"
+                android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/character_iv_image"
-                tools:text="Name" />
+                app:layout_constraintTop_toBottomOf="@+id/episode_iv_code"
+                tools:text="Everyone Dies" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

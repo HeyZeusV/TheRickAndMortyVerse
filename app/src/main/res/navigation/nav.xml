@@ -2,17 +2,27 @@
 <navigation
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav"
     app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.heyzeusv.rickmortyverse.views.HomeFragment"
-        android:label="Home" >
+        android:label="Home"
+        tools:layout="@layout/fragment_home">
 
         <action
             android:id="@+id/action_home_to_characterPage"
             app:destination="@id/characterPageFragment"
+            app:enterAnim="@anim/fragment_close_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
+
+        <action
+            android:id="@+id/action_home_to_episodePage"
+            app:destination="@id/episodePageFragment"
             app:enterAnim="@anim/fragment_close_enter"
             app:exitAnim="@anim/fragment_close_exit"
             app:popEnterAnim="@anim/fragment_fade_enter"
@@ -22,7 +32,8 @@
     <fragment
         android:id="@+id/characterPageFragment"
         android:name="com.heyzeusv.rickmortyverse.views.CharacterPageFragment"
-        android:label="Character Page">
+        android:label="Character Page"
+        tools:layout="@layout/fragment_character_page">
 
         <action
             android:id="@+id/action_characterPage_to_characterDetail"
@@ -36,11 +47,19 @@
     <fragment
         android:id="@+id/characterDetailFragment"
         android:name="com.heyzeusv.rickmortyverse.views.CharacterDetailFragment"
-        android:label="Character Detail">
+        android:label="Character Detail"
+        tools:layout="@layout/fragment_character_detail" >
+
         <argument
             android:name="characterId"
             app:argType="integer"
             android:defaultValue="1" />
     </fragment>
+
+    <fragment
+        android:id="@+id/episodePageFragment"
+        android:name="com.heyzeusv.rickmortyverse.views.EpisodePageFragment"
+        android:label="fragment_episode_page"
+        tools:layout="@layout/fragment_episode_page" />
 
 </navigation>
