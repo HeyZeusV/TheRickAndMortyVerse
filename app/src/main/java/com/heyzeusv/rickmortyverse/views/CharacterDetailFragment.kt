@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.heyzeusv.rickmortyverse.R
 import com.heyzeusv.rickmortyverse.databinding.FragmentCharacterDetailBinding
 import com.heyzeusv.rickmortyverse.models.Character
+import com.heyzeusv.rickmortyverse.models.EpisodeNameCode
 import com.heyzeusv.rickmortyverse.viewmodels.CharacterDetailController
 import com.heyzeusv.rickmortyverse.viewmodels.CharacterDetailViewModel
 import timber.log.Timber
@@ -49,7 +50,11 @@ class CharacterDetailFragment : Fragment() {
 
         charDetailVM.charDetail.observe(viewLifecycleOwner, Observer { character : Character ->
 
-            charDetailController.setData(character)
+            charDetailVM.charEpisodes.observe(viewLifecycleOwner, Observer {
+                    episodes : List<EpisodeNameCode> ->
+
+                charDetailController.setData(character, episodes)
+            })
         })
 
         return binding.root

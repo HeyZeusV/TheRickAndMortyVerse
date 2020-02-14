@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- CardView -->
+    <dimen name="cv_content_pad_start_end">8dp</dimen>
+    <dimen name="cv_content_pad_top_bot">2dp</dimen>
+    <dimen name="cv_inner_card_elevation">10dp</dimen>
+</resources>

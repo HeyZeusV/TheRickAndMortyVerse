@@ -28,6 +28,9 @@ class CharacterDetailViewModel : InjectViewModel() {
     val charDetail : LiveData<Character>
         get() = _charDetail
 
+    private val _charEpisodes : MutableLiveData<List<EpisodeNameCode>> = MutableLiveData()
+    val charEpisodes : LiveData<List<EpisodeNameCode>>
+        get() = _charEpisodes
 
     @Suppress("UnstableApiUsage")
     fun loadCharacter(charId : Int) {
@@ -79,6 +82,7 @@ class CharacterDetailViewModel : InjectViewModel() {
 
     private fun onRetrieveCharEpisodeSuccess(charEpisodes : List<EpisodeNameCode>) {
 
+        _charEpisodes.value = charEpisodes
     }
 
     override fun onCleared() {
