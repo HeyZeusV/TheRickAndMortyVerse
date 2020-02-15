@@ -60,6 +60,27 @@
         android:id="@+id/episodePageFragment"
         android:name="com.heyzeusv.rickmortyverse.views.EpisodePageFragment"
         android:label="fragment_episode_page"
-        tools:layout="@layout/fragment_episode_page" />
+        tools:layout="@layout/fragment_episode_page" >
+
+        <action
+            android:id="@+id/action_episodePage_to_episodeDetail"
+            app:destination="@id/episodeDetailFragment"
+            app:enterAnim="@anim/fragment_close_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/episodeDetailFragment"
+        android:name="com.heyzeusv.rickmortyverse.EpisodeDetailFragment"
+        android:label="fragment_episode_detail"
+        tools:layout="@layout/fragment_episode_detail" >
+
+        <argument
+            android:name="episodeId"
+            app:argType="integer"
+            android:defaultValue="1" />
+    </fragment>
 
 </navigation>

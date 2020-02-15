@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="episode"
+            type="com.heyzeusv.rickmortyverse.models.Episode" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/epis_detail_iv_cv_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:cardElevation="@dimen/cv_inner_card_elevation"
+            app:contentPaddingBottom="@dimen/cv_content_pad_top_bot"
+            app:contentPaddingLeft="@dimen/cv_content_pad_start_end"
+            app:contentPaddingRight="@dimen/cv_content_pad_start_end"
+            app:contentPaddingTop="@dimen/cv_content_pad_top_bot"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/epis_detail_iv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{@string/epis_detail_name(episode.name)}"
+                android:textSize="24sp" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/epis_detail_iv_cv_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:cardElevation="@dimen/cv_inner_card_elevation"
+            app:contentPaddingBottom="@dimen/cv_content_pad_top_bot"
+            app:contentPaddingLeft="@dimen/cv_content_pad_start_end"
+            app:contentPaddingRight="@dimen/cv_content_pad_start_end"
+            app:contentPaddingTop="@dimen/cv_content_pad_top_bot"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/epis_detail_iv_cv_name">
+
+            <TextView
+                android:id="@+id/epis_detail_iv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{@string/epis_detail_date(episode.air_date)}"
+                android:textSize="24sp" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/epis_detail_iv_cv_code"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:cardElevation="@dimen/cv_inner_card_elevation"
+            app:contentPaddingBottom="@dimen/cv_content_pad_top_bot"
+            app:contentPaddingLeft="@dimen/cv_content_pad_start_end"
+            app:contentPaddingRight="@dimen/cv_content_pad_start_end"
+            app:contentPaddingTop="@dimen/cv_content_pad_top_bot"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/epis_detail_iv_cv_date">
+
+            <TextView
+                android:id="@+id/epis_detail_iv_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{@string/epis_detail_code(episode.episode)}"
+                android:textSize="24sp" />
+        </com.google.android.material.card.MaterialCardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

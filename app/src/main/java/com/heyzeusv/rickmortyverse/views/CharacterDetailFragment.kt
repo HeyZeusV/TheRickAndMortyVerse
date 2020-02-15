@@ -11,14 +11,12 @@ import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.heyzeusv.rickmortyverse.R
 import com.heyzeusv.rickmortyverse.databinding.FragmentCharacterDetailBinding
 import com.heyzeusv.rickmortyverse.models.Character
 import com.heyzeusv.rickmortyverse.models.EpisodeNameCode
 import com.heyzeusv.rickmortyverse.viewmodels.CharacterDetailController
 import com.heyzeusv.rickmortyverse.viewmodels.CharacterDetailViewModel
-import timber.log.Timber
 
 class CharacterDetailFragment : Fragment() {
 
@@ -48,7 +46,7 @@ class CharacterDetailFragment : Fragment() {
         val charId : Int = arguments?.getInt("characterId") ?: 1
         charDetailVM.loadCharacter(charId)
 
-        charDetailVM.charDetail.observe(viewLifecycleOwner, Observer { character : Character ->
+        charDetailVM.character.observe(viewLifecycleOwner, Observer { character : Character ->
 
             charDetailVM.charEpisodes.observe(viewLifecycleOwner, Observer {
                     episodes : List<EpisodeNameCode> ->

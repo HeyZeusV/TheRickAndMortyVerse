@@ -18,15 +18,15 @@ class CharacterDetailViewModel : InjectViewModel() {
     lateinit var apiService : ApiService
 
     private lateinit var charSubscription : Disposable
-    private lateinit var epiSubscription  : Disposable
+    private lateinit var episSubscription : Disposable
 
     private val _loadingVisibility : MutableLiveData<Int> = MutableLiveData()
     val loadingVisibility : LiveData<Int>
         get() = _loadingVisibility
 
-    private val _charDetail : MutableLiveData<Character> = MutableLiveData()
-    val charDetail : LiveData<Character>
-        get() = _charDetail
+    private val _character : MutableLiveData<Character> = MutableLiveData()
+    val character : LiveData<Character>
+        get() = _character
 
     private val _charEpisodes : MutableLiveData<List<EpisodeNameCode>> = MutableLiveData()
     val charEpisodes : LiveData<List<EpisodeNameCode>>
@@ -49,7 +49,7 @@ class CharacterDetailViewModel : InjectViewModel() {
     @Suppress("UnstableApiUsage")
     private fun loadCharEpisodes(episodeIds : List<Int>) {
 
-        epiSubscription = apiService.getCharEpisodes(episodeIds)
+        episSubscription = apiService.getCharEpisodes(episodeIds)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { onRetrieveCharDetailStart() }
@@ -64,12 +64,12 @@ class CharacterDetailViewModel : InjectViewModel() {
 
     private fun onRetrieveCharDetailFinish() { _loadingVisibility.value = View.INVISIBLE }
 
-    private fun onRetrieveCharDetailSuccess(charDetail : Character) {
+    private fun onRetrieveCharDetailSuccess(character : Character) {
 
-        _charDetail.value = charDetail
+        _character.value = character
 
         val episodeIds : MutableList<Int> = mutableListOf()
-        charDetail.episode.forEach {
+        character.episode.forEach {
 
             episodeIds.add(it.substring(40).toInt())
         }
@@ -77,6 +77,7 @@ class CharacterDetailViewModel : InjectViewModel() {
     }
 
     private fun onRetrieveCharDetailError(error : Throwable) {
+
         Timber.d(error.toString())
     }
 
@@ -89,6 +90,6 @@ class CharacterDetailViewModel : InjectViewModel() {
         super.onCleared()
 
         charSubscription.dispose()
-        epiSubscription .dispose()
+        episSubscription.dispose()
     }
 }

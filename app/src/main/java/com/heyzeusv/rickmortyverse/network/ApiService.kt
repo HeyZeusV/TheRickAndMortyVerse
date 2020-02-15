@@ -1,9 +1,6 @@
 package com.heyzeusv.rickmortyverse.network
 
-import com.heyzeusv.rickmortyverse.models.Character
-import com.heyzeusv.rickmortyverse.models.CharacterPage
-import com.heyzeusv.rickmortyverse.models.EpisodeNameCode
-import com.heyzeusv.rickmortyverse.models.EpisodePage
+import com.heyzeusv.rickmortyverse.models.*
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -18,6 +15,9 @@ interface ApiService {
 
     @GET("episode")
     fun getEpisodePage() : Single<EpisodePage>
+
+    @GET("episode/{episId}")
+    fun getEpisode(@Path("episId") episId : Int) : Single<Episode>
 
     @GET("episode/{episodeIds}")
     fun getCharEpisodes(@Path("episodeIds") episodeIds : List<Int>)
