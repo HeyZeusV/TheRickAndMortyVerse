@@ -13,13 +13,17 @@ interface ApiService {
     @GET("character/{charId}")
     fun getCharacter(@Path("charId") charId : Int) : Single<Character>
 
+    @GET("character/{charIds}")
+    fun getEpisCharacters(@Path("charIds") charIds : List<Int>)
+            : Single<List<CharacterNameImage>>
+
     @GET("episode")
     fun getEpisodePage() : Single<EpisodePage>
 
     @GET("episode/{episId}")
     fun getEpisode(@Path("episId") episId : Int) : Single<Episode>
 
-    @GET("episode/{episodeIds}")
-    fun getCharEpisodes(@Path("episodeIds") episodeIds : List<Int>)
+    @GET("episode/{episIds}")
+    fun getCharEpisodes(@Path("episIds") episIds : List<Int>)
             : Single<List<EpisodeNameCode>>
 }

@@ -1,4 +1,4 @@
-package com.heyzeusv.rickmortyverse
+package com.heyzeusv.rickmortyverse.views
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,7 +11,9 @@ import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.heyzeusv.rickmortyverse.R
 import com.heyzeusv.rickmortyverse.databinding.FragmentEpisodeDetailBinding
+import com.heyzeusv.rickmortyverse.models.CharacterNameImage
 import com.heyzeusv.rickmortyverse.models.Episode
 import com.heyzeusv.rickmortyverse.viewmodels.EpisodeDetailController
 import com.heyzeusv.rickmortyverse.viewmodels.EpisodeDetailViewModel
@@ -46,7 +48,11 @@ class EpisodeDetailFragment : Fragment() {
 
         episDetailVM.episode.observe(viewLifecycleOwner, Observer { episode : Episode ->
 
-            episDetailController.setData(episode, listOf())
+            episDetailVM.episCharacters.observe(viewLifecycleOwner, Observer {
+                    characters : List<CharacterNameImage> ->
+
+                episDetailController.setData(episode, characters)
+            })
         })
 
         return binding.root

@@ -73,7 +73,7 @@
 
     <fragment
         android:id="@+id/episodeDetailFragment"
-        android:name="com.heyzeusv.rickmortyverse.EpisodeDetailFragment"
+        android:name="com.heyzeusv.rickmortyverse.views.EpisodeDetailFragment"
         android:label="fragment_episode_detail"
         tools:layout="@layout/fragment_episode_detail" >
 
