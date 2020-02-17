@@ -12,4 +12,5 @@
     <string name="epis_detail_name">Name: %s</string>
     <string name="epis_detail_date">Date Aired: %s</string>
     <string name="epis_detail_code">Episode: %s</string>
+    <string name="home_locations">Locations</string>
 </resources>

@@ -27,6 +27,14 @@
             app:exitAnim="@anim/fragment_close_exit"
             app:popEnterAnim="@anim/fragment_fade_enter"
             app:popExitAnim="@anim/fragment_fade_exit" />
+
+        <action
+            android:id="@+id/action_home_to_location_page"
+            app:destination="@id/locationPageFragment"
+            app:enterAnim="@anim/fragment_close_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
     </fragment>
 
     <fragment
@@ -83,4 +91,9 @@
             android:defaultValue="1" />
     </fragment>
 
+    <fragment
+        android:id="@+id/locationPageFragment"
+        android:name="com.heyzeusv.rickmortyverse.views.LocationPageFragment"
+        android:label="LocationPageFragment"
+        tools:layout="@layout/fragment_location_page" />
 </navigation>

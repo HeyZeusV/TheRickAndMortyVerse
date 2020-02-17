@@ -9,7 +9,6 @@ import com.airbnb.epoxy.TypedEpoxyController
 import com.heyzeusv.rickmortyverse.R
 import com.heyzeusv.rickmortyverse.episode
 import com.heyzeusv.rickmortyverse.models.EpisodePage
-import timber.log.Timber
 
 class EpisodePageController : TypedEpoxyController<EpisodePage>() {
 

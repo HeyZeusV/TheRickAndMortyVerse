@@ -19,7 +19,7 @@ import com.heyzeusv.rickmortyverse.viewmodels.EpisodePageViewModel
 
 class EpisodePageFragment : Fragment() {
 
-    //DataBinding
+    // DataBinding
     private lateinit var binding : FragmentEpisodePageBinding
 
     // EpoxyController
