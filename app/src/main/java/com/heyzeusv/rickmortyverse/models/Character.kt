@@ -37,3 +37,9 @@ data class CharacterPage(
 
     val results : List<CharacterNameImage>
 )
+
+data class CharacterPageInfo(
+
+    val info    : Information,
+    val results : List<CharacterNameImage>
+)

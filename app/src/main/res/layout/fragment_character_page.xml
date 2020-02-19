@@ -6,6 +6,8 @@
     tools:context=".CharacterPageFragment">
 
     <data>
+        <import
+            type="android.view.View" />
         <variable
             name="charPageVM"
             type="com.heyzeusv.rickmortyverse.viewmodels.CharacterPageViewModel" />
@@ -18,12 +20,12 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/character_page_epoxy"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_marginStart="6dp"
             android:layout_marginTop="6dp"
             android:layout_marginEnd="6dp"
-            android:layout_marginBottom="6dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/character_back_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -38,5 +40,42 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/character_back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="16dp"
+            android:onClick="@{charPageVM.backOnClick}"
+            android:visibility="@{charPageVM.currentPage &lt;= 1 ? View.INVISIBLE : View.VISIBLE}"
+            app:icon="@drawable/ic_baseline_arrow_back_32"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/character_mid_guideline" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/character_forward_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginBottom="16dp"
+            android:onClick="@{charPageVM.forwardOnClick}"
+            android:visibility=
+                "@{charPageVM.currentPage == charPageVM.maxPages ? View.INVISIBLE : View.VISIBLE}"
+            app:icon="@drawable/ic_baseline_arrow_forward_32"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/character_mid_guideline" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/character_mid_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".5" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

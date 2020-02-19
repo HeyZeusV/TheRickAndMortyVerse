@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.heyzeusv.rickmortyverse.viewmodels.CharacterPageViewModel
 import com.heyzeusv.rickmortyverse.R
 import com.heyzeusv.rickmortyverse.databinding.FragmentCharacterPageBinding
-import com.heyzeusv.rickmortyverse.models.CharacterPage
+import com.heyzeusv.rickmortyverse.models.CharacterNameImage
 import com.heyzeusv.rickmortyverse.viewmodels.CharacterPageController
 
 class CharacterPageFragment : Fragment() {
@@ -45,9 +45,10 @@ class CharacterPageFragment : Fragment() {
         binding.characterPageEpoxy.layoutManager = layoutManager
         binding.characterPageEpoxy.adapter       = charPageController.adapter
 
-        charPageVM.charPage.observe(viewLifecycleOwner, Observer { charPage : CharacterPage ->
+        charPageVM.charList.observe(viewLifecycleOwner, Observer {
+                charList :  List<CharacterNameImage> ->
 
-            charPageController.setData(charPage)
+            charPageController.setData(charList)
         })
 
         return binding.root

@@ -7,9 +7,9 @@ import androidx.navigation.Navigation
 import com.airbnb.epoxy.TypedEpoxyController
 import com.heyzeusv.rickmortyverse.R
 import com.heyzeusv.rickmortyverse.character
-import com.heyzeusv.rickmortyverse.models.CharacterPage
+import com.heyzeusv.rickmortyverse.models.CharacterNameImage
 
-class CharacterPageController : TypedEpoxyController<CharacterPage>() {
+class CharacterPageController : TypedEpoxyController< List<CharacterNameImage>>() {
 
     private fun setOnClick(id : Int) : View.OnClickListener {
 
@@ -18,9 +18,9 @@ class CharacterPageController : TypedEpoxyController<CharacterPage>() {
             R.id.action_characterPage_to_characterDetail, bundle)
     }
 
-    override fun buildModels(data : CharacterPage?) {
+    override fun buildModels(data :  List<CharacterNameImage>?) {
 
-        data?.results?.forEach {
+        data?.forEach {
 
             character {
 
