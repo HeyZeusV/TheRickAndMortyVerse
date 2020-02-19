@@ -6,6 +6,7 @@ import com.heyzeusv.rickmortyverse.models.CharacterPage
 import com.heyzeusv.rickmortyverse.models.Episode
 import com.heyzeusv.rickmortyverse.models.EpisodeNameCode
 import com.heyzeusv.rickmortyverse.models.EpisodePage
+import com.heyzeusv.rickmortyverse.models.Location
 import com.heyzeusv.rickmortyverse.models.LocationPage
 import io.reactivex.Single
 import retrofit2.http.GET
@@ -21,7 +22,7 @@ interface ApiService {
     fun getCharacter(@Path("charId") charId : Int) : Single<Character>
 
     @GET("character/{charIds}")
-    fun getEpisCharacters(@Path("charIds") charIds : List<Int>)
+    fun getCharacters(@Path("charIds") charIds : List<Int>)
             : Single<List<CharacterNameImage>>
 
     @GET("episode")
@@ -36,4 +37,7 @@ interface ApiService {
 
     @GET("location")
     fun getLocationPage() : Single<LocationPage>
+
+    @GET("location/{locId}")
+    fun getLocation(@Path("locId") locId : Int) : Single<Location>
 }

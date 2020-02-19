@@ -27,6 +27,7 @@ abstract class InjectViewModel : ViewModel() {
             is EpisodePageViewModel     -> injector.inject(this)
             is EpisodeDetailViewModel   -> injector.inject(this)
             is LocationPageViewModel    -> injector.inject(this)
+            is LocationDetailViewModel  -> injector.inject(this)
         }
     }
 

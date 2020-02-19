@@ -37,6 +37,11 @@ interface ViewModelComponent {
      */
     fun inject(locPageVM : LocationPageViewModel)
 
+    /**
+     *  @param locDetailVM LocationDetailViewModel in which to inject dependencies to
+     */
+    fun inject(locDetailVM : LocationDetailViewModel)
+
     @Component.Builder
     interface Builder {
 

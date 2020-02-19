@@ -95,5 +95,27 @@
         android:id="@+id/locationPageFragment"
         android:name="com.heyzeusv.rickmortyverse.views.LocationPageFragment"
         android:label="LocationPageFragment"
-        tools:layout="@layout/fragment_location_page" />
+        tools:layout="@layout/fragment_location_page" >
+
+        <action
+            android:id="@+id/action_locationPage_to_locationDetail"
+            app:destination="@id/locationDetailFragment"
+            app:enterAnim="@anim/fragment_close_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
+    </fragment>
+
+    <fragment
+
+        android:id="@+id/locationDetailFragment"
+        android:name="com.heyzeusv.rickmortyverse.views.LocationDetailFragment"
+        android:label="LocationDetailFragment"
+        tools:layout="@layout/fragment_location_detail" >
+
+        <argument
+            android:name="locationId"
+            app:argType="integer"
+            android:defaultValue="1" />
+    </fragment>
 </navigation>

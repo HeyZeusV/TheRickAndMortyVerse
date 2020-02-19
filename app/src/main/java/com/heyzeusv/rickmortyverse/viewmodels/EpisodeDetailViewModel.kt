@@ -48,7 +48,7 @@ class EpisodeDetailViewModel : InjectViewModel() {
     @Suppress("UnstableApiUsage")
     private fun loadEpisCharacters(characterIds : List<Int>) {
 
-        charSubscription = apiService.getEpisCharacters(characterIds)
+        charSubscription = apiService.getCharacters(characterIds)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { onRetrieveEpisDetailStart() }
@@ -86,5 +86,6 @@ class EpisodeDetailViewModel : InjectViewModel() {
         super.onCleared()
 
         episSubscription.dispose()
+        charSubscription.dispose()
     }
 }
