@@ -8,11 +8,15 @@
         <variable
             name="episode"
             type="com.heyzeusv.rickmortyverse.models.EpisodeNameCode" />
+        <variable
+            name="onClick"
+            type="android.view.View.OnClickListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="125dp"
         android:layout_height="125dp"
+        android:onClick="@{onClick}"
         app:cardElevation="@dimen/cv_inner_card_elevation">
 
         <androidx.constraintlayout.widget.ConstraintLayout

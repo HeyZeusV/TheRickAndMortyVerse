@@ -62,6 +62,20 @@
             android:name="characterId"
             app:argType="integer"
             android:defaultValue="1" />
+        <action
+            android:id="@+id/action_characterDetail_to_locationDetail"
+            app:destination="@id/locationDetailFragment"
+            app:enterAnim="@anim/fragment_close_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
+        <action
+            android:id="@+id/action_characterDetail_to_episodeDetail"
+            app:destination="@id/episodeDetailFragment"
+            app:enterAnim="@anim/fragment_close_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
     </fragment>
 
     <fragment
@@ -89,6 +103,13 @@
             android:name="episodeId"
             app:argType="integer"
             android:defaultValue="1" />
+        <action
+            android:id="@+id/action_episodeDetail_to_characterDetail"
+            app:destination="@id/characterDetailFragment"
+            app:enterAnim="@anim/fragment_close_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
     </fragment>
 
     <fragment
@@ -117,5 +138,12 @@
             android:name="locationId"
             app:argType="integer"
             android:defaultValue="1" />
+        <action
+            android:id="@+id/action_locationDetail_to_character_detail"
+            app:destination="@id/characterDetailFragment"
+            app:enterAnim="@anim/fragment_close_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
     </fragment>
 </navigation>

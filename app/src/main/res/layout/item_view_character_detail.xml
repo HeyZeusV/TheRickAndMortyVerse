@@ -8,6 +8,12 @@
         <variable
             name="character"
             type="com.heyzeusv.rickmortyverse.models.Character" />
+        <variable
+            name="originOnClick"
+            type="android.view.View.OnClickListener" />
+        <variable
+            name="locationOnClick"
+            type="android.view.View.OnClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,6 +25,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:cardElevation="@dimen/cv_inner_card_elevation"
+            app:contentPaddingBottom="8dp"
+            app:contentPaddingLeft="@dimen/cv_content_pad_start_end"
+            app:contentPaddingRight="@dimen/cv_content_pad_start_end"
+            app:contentPaddingTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -27,15 +37,7 @@
                 android:id="@+id/char_detail_iv_image"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
                 android:contentDescription="@{character.name}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:setGlideImage="@{character.image}"
                 tools:srcCompat="@tools:sample/avatars" />
         </com.google.android.material.card.MaterialCardView>
@@ -155,6 +157,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:onClick="@{originOnClick}"
             app:cardElevation="@dimen/cv_inner_card_elevation"
             app:contentPaddingBottom="@dimen/cv_content_pad_top_bot"
             app:contentPaddingLeft="@dimen/cv_content_pad_start_end"
@@ -177,11 +180,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:onClick="@{locationOnClick}"
             app:cardElevation="@dimen/cv_inner_card_elevation"
             app:contentPaddingBottom="@dimen/cv_content_pad_top_bot"
             app:contentPaddingLeft="@dimen/cv_content_pad_start_end"
             app:contentPaddingRight="@dimen/cv_content_pad_start_end"
             app:contentPaddingTop="@dimen/cv_content_pad_top_bot"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/char_detail_iv_cv_origin">
@@ -192,7 +198,6 @@
                 android:layout_height="wrap_content"
                 android:text="@{@string/char_detail_location(character.location.name)}"
                 android:textSize="24sp" />
-
         </com.google.android.material.card.MaterialCardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
