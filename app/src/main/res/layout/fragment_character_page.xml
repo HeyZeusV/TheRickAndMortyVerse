@@ -25,6 +25,7 @@
             android:layout_marginTop="6dp"
             android:layout_marginEnd="6dp"
             android:layout_marginBottom="16dp"
+            android:visibility="@{charPageVM.connectionVisibility == 4 ? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintBottom_toTopOf="@+id/character_back_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -48,7 +49,8 @@
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="16dp"
             android:onClick="@{charPageVM.backOnClick}"
-            android:visibility="@{charPageVM.currentPage &lt;= 1 ? View.INVISIBLE : View.VISIBLE}"
+            android:visibility=
+                "@{charPageVM.currentPage &lt;= 1 || charPageVM.connectionVisibility != 4 ? View.INVISIBLE : View.VISIBLE}"
             app:icon="@drawable/ic_baseline_arrow_back_32"
             app:iconGravity="textStart"
             app:iconPadding="0dp"
@@ -63,7 +65,7 @@
             android:layout_marginBottom="16dp"
             android:onClick="@{charPageVM.forwardOnClick}"
             android:visibility=
-                "@{charPageVM.currentPage == charPageVM.maxPages ? View.INVISIBLE : View.VISIBLE}"
+                "@{charPageVM.currentPage == charPageVM.maxPages || charPageVM.connectionVisibility != 4 ? View.INVISIBLE : View.VISIBLE}"
             app:icon="@drawable/ic_baseline_arrow_forward_32"
             app:iconGravity="textStart"
             app:iconPadding="0dp"
@@ -76,5 +78,34 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent=".5" />
+
+        <TextView
+            android:id="@+id/character_connection_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="32dp"
+            android:gravity="center"
+            android:text=
+                "@{charPageVM.connectionError > 0 ? (charPageVM.connectionError == 1 ? @string/connection_timeout : @string/connection_error) : @string/connection_no_internet}"
+            android:textSize="36sp"
+            android:visibility="@{charPageVM.connectionVisibility}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/character_connection_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/connection_try_again"
+            android:onClick="@{charPageVM.connectionOnClick}"
+            android:visibility="@{charPageVM.connectionVisibility}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/character_connection_text" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

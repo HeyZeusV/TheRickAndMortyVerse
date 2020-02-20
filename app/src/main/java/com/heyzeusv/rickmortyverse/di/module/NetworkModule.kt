@@ -5,6 +5,7 @@ import com.heyzeusv.rickmortyverse.utils.BASE_URL
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
+import okhttp3.Protocol
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -39,6 +40,9 @@ class NetworkModule {
 
         return OkHttpClient.Builder()
             .addInterceptor(interceptor)
+            // this fixes SocketTimeoutException occurring even after
+            // internet connection is established again
+            .protocols(listOf(Protocol.HTTP_1_1))
             .build()
     }
 

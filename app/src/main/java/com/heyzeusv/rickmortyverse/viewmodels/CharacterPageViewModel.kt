@@ -9,6 +9,8 @@ import com.heyzeusv.rickmortyverse.models.CharacterPageInfo
 import com.heyzeusv.rickmortyverse.network.ApiService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 import javax.inject.Inject
 
 class CharacterPageViewModel : InjectViewModel() {
@@ -24,9 +26,17 @@ class CharacterPageViewModel : InjectViewModel() {
     val maxPages : LiveData<Int>
         get() = _maxPages
 
-    private val _currentPage : MutableLiveData<Int> = MutableLiveData(0)
+    private val _currentPage : MutableLiveData<Int> = MutableLiveData(-1)
     val currentPage : LiveData<Int>
         get() = _currentPage
+
+    private val _connectionVisibility : MutableLiveData<Int> = MutableLiveData(View.INVISIBLE)
+    val connectionVisibility : LiveData<Int>
+        get() = _connectionVisibility
+
+    private val _connectionError : MutableLiveData<Int> = MutableLiveData(0)
+    val connectionError : LiveData<Int>
+        get() = _connectionError
 
     val backOnClick = View.OnClickListener {
 
@@ -40,6 +50,17 @@ class CharacterPageViewModel : InjectViewModel() {
         loadCharacterPage(_currentPage.value!!)
     }
 
+    val connectionOnClick = View.OnClickListener {
+
+        if (_currentPage.value!! == -1) {
+
+            loadCharacterPageOne()
+        } else {
+
+            loadCharacterPage(_currentPage.value!!)
+        }
+    }
+
     @Suppress("UnstableApiUsage")
     private fun loadCharacterPageOne() {
 
@@ -50,7 +71,7 @@ class CharacterPageViewModel : InjectViewModel() {
             .doOnTerminate { onRetrieveCharPageFinish() }
             .subscribe(
                 { result : CharacterPageInfo -> onRetrieveCharPageSuccess(result) },
-                { onRetrieveCharPageError() }
+                { error -> onRetrieveCharPageError(error) }
             )
     }
 
@@ -64,16 +85,25 @@ class CharacterPageViewModel : InjectViewModel() {
                 .doOnTerminate { onRetrieveCharPageFinish() }
                 .subscribe(
                         { result : CharacterPage -> onRetrieveCharacterPageSuccess(result) },
-                        { onRetrieveCharPageError()}
+                        { error : Throwable -> onRetrieveCharPageError(error)}
                 )
     }
 
-    private fun onRetrieveCharPageStart() { _loadingVisibility.value = View.VISIBLE }
+    private fun onRetrieveCharPageStart() {
 
-    private fun onRetrieveCharPageFinish() { _loadingVisibility.value = View.INVISIBLE }
+        _loadingVisibility.value = View.VISIBLE
+        _connectionVisibility.value = View.INVISIBLE
+    }
+
+    private fun onRetrieveCharPageFinish() {
+
+        _loadingVisibility.value = View.INVISIBLE
+        _connectionVisibility.value = View.INVISIBLE
+    }
 
     private fun onRetrieveCharPageSuccess(result : CharacterPageInfo) {
 
+        _currentPage.value = 1
         _charList.value = result.results
         _maxPages.value = result.info.pages
         if (result.info.count > 0) _currentPage.value = 1
@@ -84,7 +114,16 @@ class CharacterPageViewModel : InjectViewModel() {
         _charList.value = result.results
     }
 
-    private fun onRetrieveCharPageError() { }
+    private fun onRetrieveCharPageError(error : Throwable) {
+
+        when (error) {
+
+            is UnknownHostException   -> _connectionError.value = 0
+            is SocketTimeoutException -> _connectionError.value = 1
+            else                      -> _connectionError.value = 2
+        }
+        _connectionVisibility.value = View.VISIBLE
+    }
 
     init {
 
