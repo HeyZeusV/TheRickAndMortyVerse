@@ -1,6 +1,5 @@
 package com.heyzeusv.rickmortyverse.viewmodels
 
-
 import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
@@ -8,9 +7,9 @@ import androidx.navigation.Navigation
 import com.airbnb.epoxy.TypedEpoxyController
 import com.heyzeusv.rickmortyverse.R
 import com.heyzeusv.rickmortyverse.episode
-import com.heyzeusv.rickmortyverse.models.EpisodePage
+import com.heyzeusv.rickmortyverse.models.EpisodeNameCode
 
-class EpisodePageController : TypedEpoxyController<EpisodePage>() {
+class EpisodePageController : TypedEpoxyController<List<EpisodeNameCode>>() {
 
     private fun setOnClick(id : Int) : View.OnClickListener {
 
@@ -19,9 +18,9 @@ class EpisodePageController : TypedEpoxyController<EpisodePage>() {
             R.id.action_episodePage_to_episodeDetail, bundle)
     }
 
-    override fun buildModels(data : EpisodePage?) {
+    override fun buildModels(data : List<EpisodeNameCode>?) {
 
-        data?.results?.forEach {
+        data?.forEach {
 
             episode {
 

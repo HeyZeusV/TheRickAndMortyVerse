@@ -7,9 +7,9 @@ import androidx.navigation.Navigation
 import com.airbnb.epoxy.TypedEpoxyController
 import com.heyzeusv.rickmortyverse.R
 import com.heyzeusv.rickmortyverse.location
-import com.heyzeusv.rickmortyverse.models.LocationPage
+import com.heyzeusv.rickmortyverse.models.LocationNameType
 
-class LocationPageController : TypedEpoxyController<LocationPage>() {
+class LocationPageController : TypedEpoxyController<List<LocationNameType>>() {
 
     private fun setOnClick(id : Int) : View.OnClickListener {
 
@@ -18,9 +18,9 @@ class LocationPageController : TypedEpoxyController<LocationPage>() {
             R.id.action_locationPage_to_locationDetail, bundle)
     }
 
-    override fun buildModels(data: LocationPage?) {
+    override fun buildModels(data : List<LocationNameType>?) {
 
-        data?.results?.forEach {
+        data?.forEach {
 
             location {
 

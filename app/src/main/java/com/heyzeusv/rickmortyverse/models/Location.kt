@@ -21,3 +21,8 @@ data class LocationPage(
     val results : List<LocationNameType>
 )
 
+data class LocationPageInfo(
+
+    val info    : Information,
+    val results : List<LocationNameType>
+)

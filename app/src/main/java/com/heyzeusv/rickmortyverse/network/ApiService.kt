@@ -7,8 +7,10 @@ import com.heyzeusv.rickmortyverse.models.CharacterPageInfo
 import com.heyzeusv.rickmortyverse.models.Episode
 import com.heyzeusv.rickmortyverse.models.EpisodeNameCode
 import com.heyzeusv.rickmortyverse.models.EpisodePage
+import com.heyzeusv.rickmortyverse.models.EpisodePageInfo
 import com.heyzeusv.rickmortyverse.models.Location
 import com.heyzeusv.rickmortyverse.models.LocationPage
+import com.heyzeusv.rickmortyverse.models.LocationPageInfo
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -30,7 +32,10 @@ interface ApiService {
             : Single<List<CharacterNameImage>>
 
     @GET("episode")
-    fun getEpisodePage() : Single<EpisodePage>
+    fun getEpisodePageInfo() : Single<EpisodePageInfo>
+
+    @GET("episode/?")
+    fun getEpisodePage(@Query("page") page : Int) : Single<EpisodePage>
 
     @GET("episode/{episId}")
     fun getEpisode(@Path("episId") episId : Int) : Single<Episode>
@@ -40,7 +45,10 @@ interface ApiService {
             : Single<List<EpisodeNameCode>>
 
     @GET("location")
-    fun getLocationPage() : Single<LocationPage>
+    fun getLocationPageInfo() : Single<LocationPageInfo>
+
+    @GET("location/?")
+    fun getLocationPage(@Query("page") page : Int) : Single<LocationPage>
 
     @GET("location/{locId}")
     fun getLocation(@Path("locId") locId : Int) : Single<Location>

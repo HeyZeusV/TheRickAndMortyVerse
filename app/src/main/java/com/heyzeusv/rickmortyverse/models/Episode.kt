@@ -20,3 +20,9 @@ data class EpisodePage(
 
     val results : List<EpisodeNameCode>
 )
+
+data class EpisodePageInfo(
+
+    val info    : Information,
+    val results : List<EpisodeNameCode>
+)

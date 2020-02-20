@@ -13,7 +13,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import com.heyzeusv.rickmortyverse.R
 import com.heyzeusv.rickmortyverse.databinding.FragmentEpisodePageBinding
-import com.heyzeusv.rickmortyverse.models.EpisodePage
+import com.heyzeusv.rickmortyverse.models.EpisodeNameCode
 import com.heyzeusv.rickmortyverse.viewmodels.EpisodePageController
 import com.heyzeusv.rickmortyverse.viewmodels.EpisodePageViewModel
 
@@ -45,9 +45,10 @@ class EpisodePageFragment : Fragment() {
         binding.episodePageEpoxy.layoutManager = layoutManager
         binding.episodePageEpoxy.adapter       = episPageController.adapter
 
-        episPageVM.episPage.observe(viewLifecycleOwner, Observer { episPage : EpisodePage ->
+        episPageVM.episList.observe(viewLifecycleOwner, Observer {
+                episList : List<EpisodeNameCode> ->
 
-            episPageController.setData(episPage)
+            episPageController.setData(episList)
         })
 
         return binding.root
