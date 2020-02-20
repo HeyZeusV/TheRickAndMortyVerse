@@ -8,7 +8,6 @@ import com.heyzeusv.rickmortyverse.models.LocationPage
 import com.heyzeusv.rickmortyverse.models.LocationPageInfo
 import com.heyzeusv.rickmortyverse.network.ApiService
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
@@ -16,12 +15,6 @@ class LocationPageViewModel : InjectViewModel() {
 
     @Inject
     lateinit var apiService : ApiService
-
-    private lateinit var subscription : Disposable
-
-    private val _loadingVisibility : MutableLiveData<Int> = MutableLiveData()
-    val loadingVisibility : LiveData<Int>
-        get() = _loadingVisibility
 
     private val _locList : MutableLiveData<List<LocationNameType>> = MutableLiveData()
     val locList : LiveData<List<LocationNameType>>
@@ -92,12 +85,6 @@ class LocationPageViewModel : InjectViewModel() {
     }
 
     private fun onRetrieveLocPageError() { }
-
-    override fun onCleared() {
-        super.onCleared()
-
-        subscription.dispose()
-    }
 
     init {
 

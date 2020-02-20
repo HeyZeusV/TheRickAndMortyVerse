@@ -7,7 +7,6 @@ import com.heyzeusv.rickmortyverse.models.Character
 import com.heyzeusv.rickmortyverse.models.EpisodeNameCode
 import com.heyzeusv.rickmortyverse.network.ApiService
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 import javax.inject.Inject
@@ -16,13 +15,6 @@ class CharacterDetailViewModel : InjectViewModel() {
 
     @Inject
     lateinit var apiService : ApiService
-
-    private lateinit var charSubscription : Disposable
-    private lateinit var episSubscription : Disposable
-
-    private val _loadingVisibility : MutableLiveData<Int> = MutableLiveData()
-    val loadingVisibility : LiveData<Int>
-        get() = _loadingVisibility
 
     private val _character : MutableLiveData<Character> = MutableLiveData()
     val character : LiveData<Character>
@@ -35,7 +27,7 @@ class CharacterDetailViewModel : InjectViewModel() {
     @Suppress("UnstableApiUsage")
     fun loadCharacter(charId : Int) {
 
-        charSubscription = apiService.getCharacter(charId)
+        subscription = apiService.getCharacter(charId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { onRetrieveCharDetailStart()  }
@@ -49,7 +41,7 @@ class CharacterDetailViewModel : InjectViewModel() {
     @Suppress("UnstableApiUsage")
     private fun loadCharEpisodes(episodeIds : List<Int>) {
 
-        episSubscription = apiService.getCharEpisodes(episodeIds)
+        subscription = apiService.getCharEpisodes(episodeIds)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { onRetrieveCharDetailStart() }
@@ -84,12 +76,5 @@ class CharacterDetailViewModel : InjectViewModel() {
     private fun onRetrieveCharEpisodeSuccess(charEpisodes : List<EpisodeNameCode>) {
 
         _charEpisodes.value = charEpisodes
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-
-        charSubscription.dispose()
-        episSubscription.dispose()
     }
 }

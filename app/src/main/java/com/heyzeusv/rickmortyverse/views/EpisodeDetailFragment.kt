@@ -15,7 +15,7 @@ import com.heyzeusv.rickmortyverse.R
 import com.heyzeusv.rickmortyverse.databinding.FragmentEpisodeDetailBinding
 import com.heyzeusv.rickmortyverse.models.CharacterNameImage
 import com.heyzeusv.rickmortyverse.models.Episode
-import com.heyzeusv.rickmortyverse.viewmodels.EpisodeDetailController
+import com.heyzeusv.rickmortyverse.controllers.EpisodeDetailController
 import com.heyzeusv.rickmortyverse.viewmodels.EpisodeDetailViewModel
 
 class EpisodeDetailFragment : Fragment() {

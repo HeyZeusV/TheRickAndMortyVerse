@@ -14,8 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.heyzeusv.rickmortyverse.R
 import com.heyzeusv.rickmortyverse.databinding.FragmentLocationPageBinding
 import com.heyzeusv.rickmortyverse.models.LocationNameType
-import com.heyzeusv.rickmortyverse.models.LocationPage
-import com.heyzeusv.rickmortyverse.viewmodels.LocationPageController
+import com.heyzeusv.rickmortyverse.controllers.LocationPageController
 import com.heyzeusv.rickmortyverse.viewmodels.LocationPageViewModel
 
 class LocationPageFragment : Fragment() {

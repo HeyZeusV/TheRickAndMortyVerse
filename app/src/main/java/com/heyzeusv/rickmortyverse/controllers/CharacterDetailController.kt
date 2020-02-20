@@ -1,4 +1,4 @@
-package com.heyzeusv.rickmortyverse.viewmodels
+package com.heyzeusv.rickmortyverse.controllers
 
 import android.os.Bundle
 import android.view.View

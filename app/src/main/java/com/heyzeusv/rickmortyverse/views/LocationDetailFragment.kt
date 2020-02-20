@@ -15,7 +15,7 @@ import com.heyzeusv.rickmortyverse.R
 import com.heyzeusv.rickmortyverse.databinding.FragmentLocationDetailBinding
 import com.heyzeusv.rickmortyverse.models.CharacterNameImage
 import com.heyzeusv.rickmortyverse.models.Location
-import com.heyzeusv.rickmortyverse.viewmodels.LocationDetailController
+import com.heyzeusv.rickmortyverse.controllers.LocationDetailController
 import com.heyzeusv.rickmortyverse.viewmodels.LocationDetailViewModel
 
 class LocationDetailFragment : Fragment() {

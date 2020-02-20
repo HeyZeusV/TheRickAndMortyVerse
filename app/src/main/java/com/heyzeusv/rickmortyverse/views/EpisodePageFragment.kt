@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.heyzeusv.rickmortyverse.R
 import com.heyzeusv.rickmortyverse.databinding.FragmentEpisodePageBinding
 import com.heyzeusv.rickmortyverse.models.EpisodeNameCode
-import com.heyzeusv.rickmortyverse.viewmodels.EpisodePageController
+import com.heyzeusv.rickmortyverse.controllers.EpisodePageController
 import com.heyzeusv.rickmortyverse.viewmodels.EpisodePageViewModel
 
 class EpisodePageFragment : Fragment() {

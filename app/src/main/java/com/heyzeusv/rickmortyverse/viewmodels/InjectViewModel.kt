@@ -1,9 +1,12 @@
 package com.heyzeusv.rickmortyverse.viewmodels
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.heyzeusv.rickmortyverse.di.component.DaggerViewModelComponent
 import com.heyzeusv.rickmortyverse.di.component.ViewModelComponent
 import com.heyzeusv.rickmortyverse.di.module.NetworkModule
+import io.reactivex.disposables.Disposable
 
 /**
  *  Base class for ViewModels that will required dependency injections.
@@ -14,6 +17,12 @@ abstract class InjectViewModel : ViewModel() {
         .builder()
         .networkModule(NetworkModule())
         .build()
+
+    protected lateinit var subscription : Disposable
+
+    protected val _loadingVisibility : MutableLiveData<Int> = MutableLiveData()
+    val loadingVisibility : LiveData<Int>
+        get() = _loadingVisibility
 
     /**
      *  Injects the required dependencies.
@@ -29,6 +38,12 @@ abstract class InjectViewModel : ViewModel() {
             is LocationPageViewModel    -> injector.inject(this)
             is LocationDetailViewModel  -> injector.inject(this)
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+
+        subscription.dispose()
     }
 
     init {

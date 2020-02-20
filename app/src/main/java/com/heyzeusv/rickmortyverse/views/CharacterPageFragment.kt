@@ -15,7 +15,7 @@ import com.heyzeusv.rickmortyverse.viewmodels.CharacterPageViewModel
 import com.heyzeusv.rickmortyverse.R
 import com.heyzeusv.rickmortyverse.databinding.FragmentCharacterPageBinding
 import com.heyzeusv.rickmortyverse.models.CharacterNameImage
-import com.heyzeusv.rickmortyverse.viewmodels.CharacterPageController
+import com.heyzeusv.rickmortyverse.controllers.CharacterPageController
 
 class CharacterPageFragment : Fragment() {
 
