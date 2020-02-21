@@ -15,6 +15,7 @@ import com.heyzeusv.rickmortyverse.R
 import com.heyzeusv.rickmortyverse.models.LocationNameType
 import com.heyzeusv.rickmortyverse.controllers.LocationPageController
 import com.heyzeusv.rickmortyverse.databinding.FragmentTypePageBinding
+import com.heyzeusv.rickmortyverse.models.ShortType
 import com.heyzeusv.rickmortyverse.viewmodels.LocationPageViewModel
 
 class LocationPageFragment : Fragment() {
@@ -31,6 +32,7 @@ class LocationPageFragment : Fragment() {
     // NavController
     private lateinit var navController : NavController
 
+    @Suppress("UNCHECKED_CAST")
     override fun onCreateView(
             inflater : LayoutInflater, container : ViewGroup?, savedInstanceState : Bundle?) : View? {
 
@@ -45,10 +47,10 @@ class LocationPageFragment : Fragment() {
         binding.typePageEpoxy.layoutManager = layoutManager
         binding.typePageEpoxy.adapter       = locPageController.adapter
 
-        locPageVM.locList.observe(viewLifecycleOwner, Observer {
-                locList : List<LocationNameType> ->
+        locPageVM.dataType.observe(viewLifecycleOwner, Observer {
+                locList : List<ShortType> ->
 
-            locPageController.setData(locList)
+            locPageController.setData(locList as List<LocationNameType>)
         })
 
         return binding.root

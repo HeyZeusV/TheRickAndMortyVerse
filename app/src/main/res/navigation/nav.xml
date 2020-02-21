@@ -56,7 +56,7 @@
         android:id="@+id/characterDetailFragment"
         android:name="com.heyzeusv.rickmortyverse.views.CharacterDetailFragment"
         android:label="Character Detail"
-        tools:layout="@layout/fragment_character_detail" >
+        tools:layout="@layout/fragment_type_detail" >
 
         <argument
             android:name="characterId"
@@ -97,7 +97,7 @@
         android:id="@+id/episodeDetailFragment"
         android:name="com.heyzeusv.rickmortyverse.views.EpisodeDetailFragment"
         android:label="fragment_episode_detail"
-        tools:layout="@layout/fragment_episode_detail" >
+        tools:layout="@layout/fragment_type_detail" >
 
         <argument
             android:name="episodeId"
@@ -132,7 +132,7 @@
         android:id="@+id/locationDetailFragment"
         android:name="com.heyzeusv.rickmortyverse.views.LocationDetailFragment"
         android:label="LocationDetailFragment"
-        tools:layout="@layout/fragment_location_detail" >
+        tools:layout="@layout/fragment_type_detail" >
 
         <argument
             android:name="locationId"

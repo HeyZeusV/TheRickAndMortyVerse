@@ -11,15 +11,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
+@Suppress("UnstableApiUsage")
 class LocationPageViewModel : PageViewModel() {
 
     @Inject
     lateinit var apiService : ApiService
-
-    // holds one page of Locations (20 max)
-    private val _locList : MutableLiveData<List<LocationNameType>> = MutableLiveData()
-    val locList : LiveData<List<LocationNameType>>
-        get() = _locList
 
     // subtracts one from _currentPage value and starts request to load new value page
     override val backOnClick = View.OnClickListener {
@@ -50,7 +46,6 @@ class LocationPageViewModel : PageViewModel() {
     /**
      *  REST call using Retrofit that attempts to retrieve the first page of Locations.
      */
-    @Suppress("UnstableApiUsage")
     private fun loadLocationPageOne() {
 
         subscription = apiService.getLocationPageInfo()
@@ -70,7 +65,6 @@ class LocationPageViewModel : PageViewModel() {
      *
      *  @param page the page to be retrieved
      */
-    @Suppress("UnstableApiUsage")
     private fun loadLocationPage(page : Int) {
 
         subscription = apiService.getLocationPage(page)
@@ -93,13 +87,13 @@ class LocationPageViewModel : PageViewModel() {
 
         _currentPage.value = 1
         _maxPages   .value = result.info.pages
-        _locList    .value = result.results
+        _dataType    .value = result.results
     }
 
     /**
      *  @param result contains a page of Locations
      */
-    private fun onPageSuccess(result : LocationPage) { _locList.value = result.results }
+    private fun onPageSuccess(result : LocationPage) { _dataType.value = result.results }
 
     init {
 

@@ -15,6 +15,7 @@ import com.heyzeusv.rickmortyverse.R
 import com.heyzeusv.rickmortyverse.models.EpisodeNameCode
 import com.heyzeusv.rickmortyverse.controllers.EpisodePageController
 import com.heyzeusv.rickmortyverse.databinding.FragmentTypePageBinding
+import com.heyzeusv.rickmortyverse.models.ShortType
 import com.heyzeusv.rickmortyverse.viewmodels.EpisodePageViewModel
 
 class EpisodePageFragment : Fragment() {
@@ -31,6 +32,7 @@ class EpisodePageFragment : Fragment() {
     // NavController
     private lateinit var navController : NavController
 
+    @Suppress("UNCHECKED_CAST")
     override fun onCreateView(
         inflater : LayoutInflater, container : ViewGroup?, savedInstanceState : Bundle?) : View? {
 
@@ -45,10 +47,10 @@ class EpisodePageFragment : Fragment() {
         binding.typePageEpoxy.layoutManager = layoutManager
         binding.typePageEpoxy.adapter       = episPageController.adapter
 
-        episPageVM.episList.observe(viewLifecycleOwner, Observer {
-                episList : List<EpisodeNameCode> ->
+        episPageVM.dataType.observe(viewLifecycleOwner, Observer {
+                episList : List<ShortType> ->
 
-            episPageController.setData(episList)
+            episPageController.setData(episList as List<EpisodeNameCode>)
         })
 
         return binding.root

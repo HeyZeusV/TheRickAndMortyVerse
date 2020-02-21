@@ -1,89 +1,86 @@
 package com.heyzeusv.rickmortyverse.viewmodels
 
 import android.view.View
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.heyzeusv.rickmortyverse.models.Character
 import com.heyzeusv.rickmortyverse.models.EpisodeNameCode
 import com.heyzeusv.rickmortyverse.network.ApiService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import timber.log.Timber
 import javax.inject.Inject
 
-class CharacterDetailViewModel : BaseViewModel() {
+@Suppress("UnstableApiUsage")
+class CharacterDetailViewModel : DetailViewModel() {
 
     @Inject
     lateinit var apiService : ApiService
 
-    private var characterId = 1
-
-    private val _character : MutableLiveData<Character> = MutableLiveData()
-    val character : LiveData<Character>
-        get() = _character
-
-    private val _charEpisodes : MutableLiveData<List<EpisodeNameCode>> = MutableLiveData()
-    val charEpisodes : LiveData<List<EpisodeNameCode>>
-        get() = _charEpisodes
-
+    // starts request to load Character
     override val errorOnClick = View.OnClickListener {
 
-        loadCharacter(characterId)
+        loadCharacter(typeId)
     }
 
-    @Suppress("UnstableApiUsage")
+    /**
+     *  REST call using Retrofit that attempts to retrieve specified Character.
+     *
+     *  @param charId Character to be loaded
+     */
     fun loadCharacter(charId : Int) {
 
-        characterId = charId
+        typeId = charId
 
         subscription = apiService.getCharacter(charId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { onRetrieveCharDetailStart()  }
-            .doOnTerminate { onRetrieveCharDetailFinish() }
+            .doOnSubscribe { onStart()  }
+            .doOnTerminate { onFinish() }
             .subscribe(
-                { result : Character -> onRetrieveCharDetailSuccess(result) },
-                { error  : Throwable -> onRetrieveCharDetailError(error)    }
+                { result : Character -> onCharacterSuccess(result) },
+                { error  : Throwable -> onError(error)             }
             )
     }
 
-    @Suppress("UnstableApiUsage")
-    private fun loadCharEpisodes(episodeIds : List<Int>) {
+    /**
+     *  REST call using Retrofit that attempts to retrieve the specified Episodes.
+     *
+     *  @param episodeIds taken from Character loaded, episodes Character appears in
+     */
+    private fun loadEpisodes(episodeIds : List<Int>) {
 
         subscription = apiService.getCharEpisodes(episodeIds)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { onRetrieveCharDetailStart() }
-            .doOnTerminate { onRetrieveCharDetailFinish() }
+            .doOnSubscribe { onStart() }
+            .doOnTerminate { onFinish() }
             .subscribe(
-                { result : List<EpisodeNameCode> -> onRetrieveCharEpisodeSuccess(result)},
-                { error  : Throwable             -> onRetrieveCharDetailError(error)    }
+                { result : List<EpisodeNameCode> -> onEpisodeSuccess(result) },
+                { error  : Throwable             -> onError(error)           }
             )
     }
 
-    private fun onRetrieveCharDetailStart() { _loadingVisibility.value = View.VISIBLE }
+    /**
+     *  Retrieves Episode ids from list of episode in Character, by removing most of the URL
+     *  leaving only the id.
+     *
+     *  @param character Character that was loaded
+     */
+    private fun onCharacterSuccess(character : Character) {
 
-    private fun onRetrieveCharDetailFinish() { _loadingVisibility.value = View.INVISIBLE }
-
-    private fun onRetrieveCharDetailSuccess(character : Character) {
-
-        _character.value = character
+        _dataType.value = character
 
         val episodeIds : MutableList<Int> = mutableListOf()
         character.episode.forEach {
 
             episodeIds.add(it.substring(40).toInt())
         }
-        loadCharEpisodes(episodeIds)
+        loadEpisodes(episodeIds)
     }
 
-    private fun onRetrieveCharDetailError(error : Throwable) {
+    /**
+     *  @param episodes episodes that loaded Character appears in
+     */
+    private fun onEpisodeSuccess(episodes : List<EpisodeNameCode>) {
 
-        Timber.d(error.toString())
-    }
-
-    private fun onRetrieveCharEpisodeSuccess(charEpisodes : List<EpisodeNameCode>) {
-
-        _charEpisodes.value = charEpisodes
+        _carouselType.value = episodes
     }
 }

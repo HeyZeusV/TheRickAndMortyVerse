@@ -12,16 +12,18 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.heyzeusv.rickmortyverse.R
-import com.heyzeusv.rickmortyverse.databinding.FragmentLocationDetailBinding
 import com.heyzeusv.rickmortyverse.models.CharacterNameImage
 import com.heyzeusv.rickmortyverse.models.Location
 import com.heyzeusv.rickmortyverse.controllers.LocationDetailController
+import com.heyzeusv.rickmortyverse.databinding.FragmentTypeDetailBinding
+import com.heyzeusv.rickmortyverse.models.FullType
+import com.heyzeusv.rickmortyverse.models.ShortType
 import com.heyzeusv.rickmortyverse.viewmodels.LocationDetailViewModel
 
 class LocationDetailFragment : Fragment() {
 
     // DataBinding
-    private lateinit var binding : FragmentLocationDetailBinding
+    private lateinit var binding : FragmentTypeDetailBinding
 
     // EpoxyController
     private val locDetailController = LocationDetailController()
@@ -32,26 +34,28 @@ class LocationDetailFragment : Fragment() {
     // NavController
     private lateinit var navController : NavController
 
+    @Suppress("UNCHECKED_CAST")
     override fun onCreateView(
         inflater : LayoutInflater, container : ViewGroup?, savedInstanceState : Bundle?) : View? {
 
         binding = DataBindingUtil.inflate(inflater,
-            R.layout.fragment_location_detail, container, false)
+            R.layout.fragment_type_detail, container, false)
         binding.lifecycleOwner = activity
-        binding.locDetailVM    = locDetailVM
+        binding.detailVM       = locDetailVM
 
-        binding.locationDetailEpoxy.layoutManager = LinearLayoutManager(context)
-        binding.locationDetailEpoxy.adapter       = locDetailController.adapter
+        binding.typeDetailEpoxy.layoutManager = LinearLayoutManager(context)
+        binding.typeDetailEpoxy.adapter       = locDetailController.adapter
 
         val locId : Int = arguments?.getInt("locationId") ?: 1
         locDetailVM.loadLocation(locId)
 
-        locDetailVM.location.observe(viewLifecycleOwner, Observer { location : Location ->
+        locDetailVM.dataType.observe(viewLifecycleOwner, Observer { location : FullType ->
 
-            locDetailVM.locCharacters.observe(viewLifecycleOwner, Observer {
-                    characters : List<CharacterNameImage> ->
+            locDetailVM.carouselType.observe(viewLifecycleOwner, Observer {
+                    characters : List<ShortType> ->
 
-                locDetailController.setData(location, characters)
+                locDetailController.setData(
+                    location as Location, characters as List<CharacterNameImage>)
             })
         })
 

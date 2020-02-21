@@ -1,9 +1,6 @@
 package com.heyzeusv.rickmortyverse.viewmodels
 
 import android.view.View
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.heyzeusv.rickmortyverse.models.CharacterNameImage
 import com.heyzeusv.rickmortyverse.models.CharacterPage
 import com.heyzeusv.rickmortyverse.models.CharacterPageInfo
 import com.heyzeusv.rickmortyverse.network.ApiService
@@ -11,15 +8,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
+@Suppress("UnstableApiUsage")
 class CharacterPageViewModel : PageViewModel() {
 
     @Inject
     lateinit var apiService : ApiService
-
-    // holds one page of Characters (20 max)
-    private val _charList : MutableLiveData< List<CharacterNameImage>> = MutableLiveData()
-    val charList : LiveData< List<CharacterNameImage>>
-        get() = _charList
 
     // subtracts one from _currentPage value and starts request to load new value page
     override val backOnClick = View.OnClickListener {
@@ -50,7 +43,6 @@ class CharacterPageViewModel : PageViewModel() {
     /**
      *  REST call using Retrofit that attempts to retrieve the first page of Characters.
      */
-    @Suppress("UnstableApiUsage")
     private fun loadCharacterPageOne() {
 
         subscription = apiService.getCharacterPageInfo()
@@ -69,7 +61,6 @@ class CharacterPageViewModel : PageViewModel() {
      *
      *  @param page the page to be retrieved
      */
-    @Suppress("UnstableApiUsage")
     private fun loadCharacterPage(page : Int) {
 
         subscription = apiService.getCharacterPage(page)
@@ -92,13 +83,13 @@ class CharacterPageViewModel : PageViewModel() {
 
         _currentPage.value = 1
         _maxPages   .value = result.info.pages
-        _charList   .value = result.results
+        _dataType   .value = result.results
     }
 
     /**
      *  @param result contains a page of Characters
      */
-    private fun onPageSuccess(result : CharacterPage) { _charList.value = result.results }
+    private fun onPageSuccess(result : CharacterPage) { _dataType.value = result.results }
 
     init {
 

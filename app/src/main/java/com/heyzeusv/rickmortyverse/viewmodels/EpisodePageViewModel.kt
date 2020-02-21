@@ -1,9 +1,6 @@
 package com.heyzeusv.rickmortyverse.viewmodels
 
 import android.view.View
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.heyzeusv.rickmortyverse.models.EpisodeNameCode
 import com.heyzeusv.rickmortyverse.models.EpisodePage
 import com.heyzeusv.rickmortyverse.models.EpisodePageInfo
 import com.heyzeusv.rickmortyverse.network.ApiService
@@ -11,15 +8,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
+@Suppress("UnstableApiUsage")
 class EpisodePageViewModel : PageViewModel() {
 
     @Inject
     lateinit var apiService : ApiService
-
-    // holds one page of Episodes (20 max)
-    private val _episList : MutableLiveData<List<EpisodeNameCode>> = MutableLiveData()
-    val episList : LiveData<List<EpisodeNameCode>>
-        get() = _episList
 
     // subtracts one from _currentPage value and starts request to load new value page
     override val backOnClick = View.OnClickListener {
@@ -50,7 +43,6 @@ class EpisodePageViewModel : PageViewModel() {
     /**
      *  REST call using Retrofit that attempts to retrieve the first page of Episodes.
      */
-    @Suppress("UnstableApiUsage")
     private fun loadEpisodePageOne() {
 
         subscription =  apiService.getEpisodePageInfo()
@@ -69,7 +61,6 @@ class EpisodePageViewModel : PageViewModel() {
      *
      *  @param page the page to be retrieved
      */
-    @Suppress("UnstableApiUsage")
     private fun loadEpisodePage(page : Int) {
 
         subscription =  apiService.getEpisodePage(page)
@@ -92,14 +83,14 @@ class EpisodePageViewModel : PageViewModel() {
 
         _currentPage.value = 1
         _maxPages   .value = result.info.pages
-        _episList   .value = result.results
+        _dataType   .value = result.results
 
     }
 
     /**
      *  @param result contains a page of Characters
      */
-    private fun onPageSuccess(result : EpisodePage) { _episList.value = result.results }
+    private fun onPageSuccess(result : EpisodePage) { _dataType.value = result.results }
 
     init {
 

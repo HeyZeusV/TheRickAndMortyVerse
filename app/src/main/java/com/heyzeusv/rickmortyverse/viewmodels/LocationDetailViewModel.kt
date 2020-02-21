@@ -1,8 +1,6 @@
 package com.heyzeusv.rickmortyverse.viewmodels
 
 import android.view.View
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.heyzeusv.rickmortyverse.models.CharacterNameImage
 import com.heyzeusv.rickmortyverse.models.Location
 import com.heyzeusv.rickmortyverse.network.ApiService
@@ -10,76 +8,79 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class LocationDetailViewModel : BaseViewModel() {
+@Suppress("UnstableApiUsage")
+class LocationDetailViewModel : DetailViewModel() {
 
     @Inject
     lateinit var apiService : ApiService
 
-    private var locationId = 1
-
-    private val _location : MutableLiveData<Location> = MutableLiveData()
-    val location : LiveData<Location>
-        get() = _location
-
-    private val _locCharacters : MutableLiveData<List<CharacterNameImage>> = MutableLiveData()
-    val locCharacters : LiveData<List<CharacterNameImage>>
-        get() = _locCharacters
-
+    // starts request to load Location
     override val errorOnClick = View.OnClickListener {
 
-        loadLocation(locationId)
+        loadLocation(typeId)
     }
 
-    @Suppress("UnstableApiUsage")
+    /**
+     *  REST call using Retrofit that attempts to retrieve specified Location.
+     *
+     *  @param locId Location to be loaded
+     */
     fun loadLocation(locId : Int) {
 
-        locationId = locId
+        typeId = locId
 
         subscription = apiService.getLocation(locId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { onRetrieveLocDetailStart() }
-            .doOnTerminate { onRetrieveLocDetailFinish() }
+            .doOnSubscribe { onStart() }
+            .doOnTerminate { onFinish() }
             .subscribe(
-                { result : Location -> onRetrieveLocDetailSuccess(result)},
-                { onRetrieveLocDetailError() }
+                { result : Location  -> onLocationSuccess(result)},
+                { error  : Throwable -> onError(error)           }
             )
     }
 
-    @Suppress("UnstableApiUsage")
-    private fun loadLocCharacters(characterIds : List<Int>) {
+    /**
+     *  REST call using Retrofit that attempts to retrieve the specified Characters.
+     *
+     *  @param characterIds taken from Location loaded, residents of Location
+     */
+    private fun loadResidents(characterIds : List<Int>) {
 
         subscription = apiService.getCharacters(characterIds)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { onRetrieveLocDetailStart() }
-            .doOnTerminate { onRetrieveLocDetailFinish() }
+            .doOnSubscribe { onStart() }
+            .doOnTerminate { onFinish() }
             .subscribe(
-                { result : List<CharacterNameImage> -> onRetrieveLocCharacterSuccess(result) },
-                { onRetrieveLocDetailError() }
+                { result : List<CharacterNameImage> -> onResidentSuccess(result) },
+                { error  : Throwable                -> onError(error)            }
             )
     }
 
-    private fun onRetrieveLocDetailStart() { _loadingVisibility.value = View.VISIBLE }
+    /**
+     *  Retrieves Character ids from list of residents in Location, by removing most of the URL
+     *  leaving only the id.
+     *
+     *  @param location Location that was loaded
+     */
+    private fun onLocationSuccess(location : Location) {
 
-    private fun onRetrieveLocDetailFinish() { _loadingVisibility.value = View.INVISIBLE }
-
-    private fun onRetrieveLocDetailSuccess(location : Location) {
-
-        _location.value = location
+        _dataType.value = location
 
         val characterIds : MutableList<Int> = mutableListOf()
         location.residents.forEach {
 
             characterIds.add(it.substring(42).toInt())
         }
-        loadLocCharacters(characterIds)
+        loadResidents(characterIds)
     }
 
-    private fun onRetrieveLocDetailError() {}
+    /**
+     *  @param residents residents of loaded Location
+     */
+    private fun onResidentSuccess(residents : List<CharacterNameImage>) {
 
-    private fun onRetrieveLocCharacterSuccess(locCharacters : List<CharacterNameImage>) {
-
-        _locCharacters.value = locCharacters
+        _carouselType.value = residents
     }
 }

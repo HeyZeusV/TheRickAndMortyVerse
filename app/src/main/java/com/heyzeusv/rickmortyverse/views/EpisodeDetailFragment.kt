@@ -12,16 +12,18 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.heyzeusv.rickmortyverse.R
-import com.heyzeusv.rickmortyverse.databinding.FragmentEpisodeDetailBinding
 import com.heyzeusv.rickmortyverse.models.CharacterNameImage
 import com.heyzeusv.rickmortyverse.models.Episode
 import com.heyzeusv.rickmortyverse.controllers.EpisodeDetailController
+import com.heyzeusv.rickmortyverse.databinding.FragmentTypeDetailBinding
+import com.heyzeusv.rickmortyverse.models.FullType
+import com.heyzeusv.rickmortyverse.models.ShortType
 import com.heyzeusv.rickmortyverse.viewmodels.EpisodeDetailViewModel
 
 class EpisodeDetailFragment : Fragment() {
 
     // DataBinding
-    private lateinit var binding : FragmentEpisodeDetailBinding
+    private lateinit var binding : FragmentTypeDetailBinding
 
     // EpoxyController
     private val episDetailController = EpisodeDetailController()
@@ -32,26 +34,28 @@ class EpisodeDetailFragment : Fragment() {
     // NavController
     private lateinit var navController : NavController
 
+    @Suppress("UNCHECKED_CAST")
     override fun onCreateView(
         inflater : LayoutInflater, container : ViewGroup?, savedInstanceState : Bundle?) : View? {
 
         binding = DataBindingUtil.inflate(inflater,
-            R.layout.fragment_episode_detail, container, false)
+            R.layout.fragment_type_detail, container, false)
         binding.lifecycleOwner = activity
-        binding.episDetailVM   = episDetailVM
+        binding.detailVM       = episDetailVM
 
-        binding.episodeDetailEpoxy.layoutManager = LinearLayoutManager(context)
-        binding.episodeDetailEpoxy.adapter       = episDetailController.adapter
+        binding.typeDetailEpoxy.layoutManager = LinearLayoutManager(context)
+        binding.typeDetailEpoxy.adapter       = episDetailController.adapter
 
         val episId : Int = arguments?.getInt("episodeId") ?: 1
         episDetailVM.loadEpisode(episId)
 
-        episDetailVM.episode.observe(viewLifecycleOwner, Observer { episode : Episode ->
+        episDetailVM.dataType.observe(viewLifecycleOwner, Observer { episode : FullType ->
 
-            episDetailVM.episCharacters.observe(viewLifecycleOwner, Observer {
-                    characters : List<CharacterNameImage> ->
+            episDetailVM.carouselType.observe(viewLifecycleOwner, Observer {
+                    characters : List<ShortType> ->
 
-                episDetailController.setData(episode, characters)
+                episDetailController.setData(
+                    episode as Episode, characters as List<CharacterNameImage>)
             })
         })
 

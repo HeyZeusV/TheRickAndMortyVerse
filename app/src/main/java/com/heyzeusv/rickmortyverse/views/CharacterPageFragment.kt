@@ -16,6 +16,7 @@ import com.heyzeusv.rickmortyverse.R
 import com.heyzeusv.rickmortyverse.models.CharacterNameImage
 import com.heyzeusv.rickmortyverse.controllers.CharacterPageController
 import com.heyzeusv.rickmortyverse.databinding.FragmentTypePageBinding
+import com.heyzeusv.rickmortyverse.models.ShortType
 
 class CharacterPageFragment : Fragment() {
 
@@ -31,6 +32,7 @@ class CharacterPageFragment : Fragment() {
     // NavController
     private lateinit var navController : NavController
 
+    @Suppress("UNCHECKED_CAST")
     override fun onCreateView(
         inflater : LayoutInflater, container : ViewGroup?, savedInstanceState : Bundle?) : View? {
 
@@ -45,10 +47,10 @@ class CharacterPageFragment : Fragment() {
         binding.typePageEpoxy.layoutManager = layoutManager
         binding.typePageEpoxy.adapter       = charPageController.adapter
 
-        charPageVM.charList.observe(viewLifecycleOwner, Observer {
-                charList :  List<CharacterNameImage> ->
+        charPageVM.dataType.observe(viewLifecycleOwner, Observer {
+                charList :  List<ShortType> ->
 
-            charPageController.setData(charList)
+            charPageController.setData(charList as List<CharacterNameImage>)
         })
 
         return binding.root

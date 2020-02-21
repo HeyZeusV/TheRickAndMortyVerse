@@ -12,16 +12,18 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.heyzeusv.rickmortyverse.R
-import com.heyzeusv.rickmortyverse.databinding.FragmentCharacterDetailBinding
 import com.heyzeusv.rickmortyverse.models.Character
 import com.heyzeusv.rickmortyverse.models.EpisodeNameCode
 import com.heyzeusv.rickmortyverse.controllers.CharacterDetailController
+import com.heyzeusv.rickmortyverse.databinding.FragmentTypeDetailBinding
+import com.heyzeusv.rickmortyverse.models.FullType
+import com.heyzeusv.rickmortyverse.models.ShortType
 import com.heyzeusv.rickmortyverse.viewmodels.CharacterDetailViewModel
 
 class CharacterDetailFragment : Fragment() {
 
     // DataBinding
-    private lateinit var binding : FragmentCharacterDetailBinding
+    private lateinit var binding : FragmentTypeDetailBinding
 
     // EpoxyController
     private val charDetailController = CharacterDetailController()
@@ -32,26 +34,28 @@ class CharacterDetailFragment : Fragment() {
     // NavController
     private lateinit var navController : NavController
 
+    @Suppress("UNCHECKED_CAST")
     override fun onCreateView(
         inflater : LayoutInflater, container : ViewGroup?, savedInstanceState: Bundle?) : View? {
 
         binding = DataBindingUtil.inflate(inflater,
-            R.layout.fragment_character_detail, container, false)
+            R.layout.fragment_type_detail, container, false)
         binding.lifecycleOwner = activity
-        binding.charDetailVM   = charDetailVM
+        binding.detailVM       = charDetailVM
 
-        binding.characterDetailEpoxy.layoutManager = LinearLayoutManager(context)
-        binding.characterDetailEpoxy.adapter       = charDetailController.adapter
+        binding.typeDetailEpoxy.layoutManager = LinearLayoutManager(context)
+        binding.typeDetailEpoxy.adapter       = charDetailController.adapter
 
         val charId : Int = arguments?.getInt("characterId") ?: 1
         charDetailVM.loadCharacter(charId)
 
-        charDetailVM.character.observe(viewLifecycleOwner, Observer { character : Character ->
+        charDetailVM.dataType.observe(viewLifecycleOwner, Observer { character : FullType ->
 
-            charDetailVM.charEpisodes.observe(viewLifecycleOwner, Observer {
-                    episodes : List<EpisodeNameCode> ->
+            charDetailVM.carouselType.observe(viewLifecycleOwner, Observer {
+                    episodes : List<ShortType> ->
 
-                charDetailController.setData(character, episodes)
+                charDetailController.setData(
+                    character as Character, episodes as List<EpisodeNameCode>)
             })
         })
 
@@ -62,6 +66,5 @@ class CharacterDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         navController = Navigation.findNavController(view)
-
     }
 }
