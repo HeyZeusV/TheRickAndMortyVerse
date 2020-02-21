@@ -13,14 +13,14 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import com.heyzeusv.rickmortyverse.viewmodels.CharacterPageViewModel
 import com.heyzeusv.rickmortyverse.R
-import com.heyzeusv.rickmortyverse.databinding.FragmentCharacterPageBinding
 import com.heyzeusv.rickmortyverse.models.CharacterNameImage
 import com.heyzeusv.rickmortyverse.controllers.CharacterPageController
+import com.heyzeusv.rickmortyverse.databinding.FragmentTypePageBinding
 
 class CharacterPageFragment : Fragment() {
 
     // DataBinding
-    private lateinit var binding : FragmentCharacterPageBinding
+    private lateinit var binding : FragmentTypePageBinding
 
     // EpoxyController
     private val charPageController = CharacterPageController()
@@ -35,15 +35,15 @@ class CharacterPageFragment : Fragment() {
         inflater : LayoutInflater, container : ViewGroup?, savedInstanceState : Bundle?) : View? {
 
         binding = DataBindingUtil.inflate(inflater,
-            R.layout.fragment_character_page, container, false)
+            R.layout.fragment_type_page, container, false)
         binding.lifecycleOwner = activity
-        binding.charPageVM     = charPageVM
+        binding.pageVM         = charPageVM
 
         val layoutManager = GridLayoutManager(context, 2)
         charPageController.spanCount = 2
         layoutManager.spanSizeLookup = charPageController.spanSizeLookup
-        binding.characterPageEpoxy.layoutManager = layoutManager
-        binding.characterPageEpoxy.adapter       = charPageController.adapter
+        binding.typePageEpoxy.layoutManager = layoutManager
+        binding.typePageEpoxy.adapter       = charPageController.adapter
 
         charPageVM.charList.observe(viewLifecycleOwner, Observer {
                 charList :  List<CharacterNameImage> ->

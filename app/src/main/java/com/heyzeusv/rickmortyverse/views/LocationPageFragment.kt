@@ -12,15 +12,15 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import com.heyzeusv.rickmortyverse.R
-import com.heyzeusv.rickmortyverse.databinding.FragmentLocationPageBinding
 import com.heyzeusv.rickmortyverse.models.LocationNameType
 import com.heyzeusv.rickmortyverse.controllers.LocationPageController
+import com.heyzeusv.rickmortyverse.databinding.FragmentTypePageBinding
 import com.heyzeusv.rickmortyverse.viewmodels.LocationPageViewModel
 
 class LocationPageFragment : Fragment() {
 
     // DataBinding
-    private lateinit var binding : FragmentLocationPageBinding
+    private lateinit var binding : FragmentTypePageBinding
 
     // EpoxyController
     private val locPageController = LocationPageController()
@@ -35,15 +35,15 @@ class LocationPageFragment : Fragment() {
             inflater : LayoutInflater, container : ViewGroup?, savedInstanceState : Bundle?) : View? {
 
         binding = DataBindingUtil.inflate(inflater,
-                R.layout.fragment_location_page, container, false)
+                R.layout.fragment_type_page, container, false)
         binding.lifecycleOwner = activity
-        binding.locPageVM      = locPageVM
+        binding.pageVM         = locPageVM
 
         val layoutManager = GridLayoutManager(context, 2)
         locPageController.spanCount = 2
         layoutManager.spanSizeLookup = locPageController.spanSizeLookup
-        binding.locationPageEpoxy.layoutManager = layoutManager
-        binding.locationPageEpoxy.adapter       = locPageController.adapter
+        binding.typePageEpoxy.layoutManager = layoutManager
+        binding.typePageEpoxy.adapter       = locPageController.adapter
 
         locPageVM.locList.observe(viewLifecycleOwner, Observer {
                 locList : List<LocationNameType> ->

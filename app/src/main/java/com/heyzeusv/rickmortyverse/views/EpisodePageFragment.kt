@@ -12,15 +12,15 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import com.heyzeusv.rickmortyverse.R
-import com.heyzeusv.rickmortyverse.databinding.FragmentEpisodePageBinding
 import com.heyzeusv.rickmortyverse.models.EpisodeNameCode
 import com.heyzeusv.rickmortyverse.controllers.EpisodePageController
+import com.heyzeusv.rickmortyverse.databinding.FragmentTypePageBinding
 import com.heyzeusv.rickmortyverse.viewmodels.EpisodePageViewModel
 
 class EpisodePageFragment : Fragment() {
 
     // DataBinding
-    private lateinit var binding : FragmentEpisodePageBinding
+    private lateinit var binding : FragmentTypePageBinding
 
     // EpoxyController
     private val episPageController = EpisodePageController()
@@ -35,15 +35,15 @@ class EpisodePageFragment : Fragment() {
         inflater : LayoutInflater, container : ViewGroup?, savedInstanceState : Bundle?) : View? {
 
         binding = DataBindingUtil.inflate(inflater,
-            R.layout.fragment_episode_page, container, false)
+            R.layout.fragment_type_page, container, false)
         binding.lifecycleOwner = activity
-        binding.episPageVM     = episPageVM
+        binding.pageVM         = episPageVM
 
         val layoutManager = GridLayoutManager(context, 2)
         episPageController.spanCount = 2
         layoutManager.spanSizeLookup = episPageController.spanSizeLookup
-        binding.episodePageEpoxy.layoutManager = layoutManager
-        binding.episodePageEpoxy.adapter       = episPageController.adapter
+        binding.typePageEpoxy.layoutManager = layoutManager
+        binding.typePageEpoxy.adapter       = episPageController.adapter
 
         episPageVM.episList.observe(viewLifecycleOwner, Observer {
                 episList : List<EpisodeNameCode> ->

@@ -10,10 +10,12 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class EpisodeDetailViewModel : InjectViewModel() {
+class EpisodeDetailViewModel : BaseViewModel() {
 
     @Inject
     lateinit var apiService : ApiService
+
+    private var episodeId = 1
 
     private val _episode : MutableLiveData<Episode> = MutableLiveData()
     val episode : LiveData<Episode>
@@ -23,8 +25,15 @@ class EpisodeDetailViewModel : InjectViewModel() {
     val episCharacters : LiveData<List<CharacterNameImage>>
         get() = _episCharacters
 
+    override val errorOnClick = View.OnClickListener {
+
+        loadEpisode(episodeId)
+    }
+
     @Suppress("UnstableApiUsage")
     fun loadEpisode(episId : Int) {
+
+        episodeId = episId
 
         subscription = apiService.getEpisode(episId)
             .subscribeOn(Schedulers.io())

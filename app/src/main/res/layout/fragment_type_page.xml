@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".CharacterPageFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <import
             type="android.view.View" />
         <variable
-            name="charPageVM"
-            type="com.heyzeusv.rickmortyverse.viewmodels.CharacterPageViewModel" />
+            name="pageVM"
+            type="com.heyzeusv.rickmortyverse.viewmodels.PageViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,15 +16,15 @@
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/character_page_epoxy"
+            android:id="@+id/type_page_epoxy"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="6dp"
             android:layout_marginTop="6dp"
             android:layout_marginEnd="6dp"
             android:layout_marginBottom="16dp"
-            android:visibility="@{charPageVM.connectionVisibility == 4 ? View.VISIBLE : View.INVISIBLE}"
-            app:layout_constraintBottom_toTopOf="@+id/character_back_button"
+            android:visibility="@{pageVM.errorVisibility == 4 ? View.VISIBLE : View.INVISIBLE}"
+            app:layout_constraintBottom_toTopOf="@+id/type_page_back_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -36,51 +34,51 @@
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="@{charPageVM.loadingVisibility}"
+            android:visibility="@{pageVM.loadingVisibility}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/character_back_button"
+            android:id="@+id/type_page_back_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="16dp"
-            android:onClick="@{charPageVM.backOnClick}"
+            android:onClick="@{pageVM.backOnClick}"
             android:visibility=
-                "@{charPageVM.currentPage &lt;= 1 || charPageVM.connectionVisibility != 4 ? View.INVISIBLE : View.VISIBLE}"
+                "@{pageVM.currentPage &lt;= 1 || pageVM.errorVisibility != 4 || pageVM.loadingVisibility != 4 ? View.INVISIBLE : View.VISIBLE}"
             app:icon="@drawable/ic_baseline_arrow_back_32"
             app:iconGravity="textStart"
             app:iconPadding="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/character_mid_guideline" />
+            app:layout_constraintEnd_toStartOf="@+id/type_page_mid_guideline" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/character_forward_button"
+            android:id="@+id/type_page_forward_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginBottom="16dp"
-            android:onClick="@{charPageVM.forwardOnClick}"
+            android:onClick="@{pageVM.forwardOnClick}"
             android:visibility=
-                "@{charPageVM.currentPage == charPageVM.maxPages || charPageVM.connectionVisibility != 4 ? View.INVISIBLE : View.VISIBLE}"
+                "@{pageVM.currentPage == pageVM.maxPages || pageVM.errorVisibility != 4 || pageVM.loadingVisibility != 4 ? View.INVISIBLE : View.VISIBLE}"
             app:icon="@drawable/ic_baseline_arrow_forward_32"
             app:iconGravity="textStart"
             app:iconPadding="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/character_mid_guideline" />
+            app:layout_constraintStart_toStartOf="@+id/type_page_mid_guideline" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/character_mid_guideline"
+            android:id="@+id/type_page_mid_guideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent=".5" />
 
         <TextView
-            android:id="@+id/character_connection_text"
+            android:id="@+id/type_page_connection_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -88,24 +86,24 @@
             android:layout_marginBottom="32dp"
             android:gravity="center"
             android:text=
-                "@{charPageVM.connectionError > 0 ? (charPageVM.connectionError == 1 ? @string/connection_timeout : @string/connection_error) : @string/connection_no_internet}"
+                "@{pageVM.errorMessage > 0 ? (pageVM.errorMessage == 1 ? @string/connection_timeout : @string/connection_error) : @string/connection_no_internet}"
             android:textSize="36sp"
-            android:visibility="@{charPageVM.connectionVisibility}"
+            android:visibility="@{pageVM.errorVisibility}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/character_connection_button"
+            android:id="@+id/type_page_connection_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/connection_try_again"
-            android:onClick="@{charPageVM.connectionOnClick}"
-            android:visibility="@{charPageVM.connectionVisibility}"
+            android:onClick="@{pageVM.errorOnClick}"
+            android:visibility="@{pageVM.errorVisibility}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/character_connection_text" />
+            app:layout_constraintTop_toBottomOf="@+id/type_page_connection_text" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

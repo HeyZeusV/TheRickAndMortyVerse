@@ -9,48 +9,34 @@ import com.heyzeusv.rickmortyverse.models.CharacterPageInfo
 import com.heyzeusv.rickmortyverse.network.ApiService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import java.net.SocketTimeoutException
-import java.net.UnknownHostException
 import javax.inject.Inject
 
-class CharacterPageViewModel : InjectViewModel() {
+class CharacterPageViewModel : PageViewModel() {
 
     @Inject
     lateinit var apiService : ApiService
 
+    // holds one page of Characters (20 max)
     private val _charList : MutableLiveData< List<CharacterNameImage>> = MutableLiveData()
     val charList : LiveData< List<CharacterNameImage>>
         get() = _charList
 
-    private val _maxPages : MutableLiveData<Int> = MutableLiveData(0)
-    val maxPages : LiveData<Int>
-        get() = _maxPages
-
-    private val _currentPage : MutableLiveData<Int> = MutableLiveData(-1)
-    val currentPage : LiveData<Int>
-        get() = _currentPage
-
-    private val _connectionVisibility : MutableLiveData<Int> = MutableLiveData(View.INVISIBLE)
-    val connectionVisibility : LiveData<Int>
-        get() = _connectionVisibility
-
-    private val _connectionError : MutableLiveData<Int> = MutableLiveData(0)
-    val connectionError : LiveData<Int>
-        get() = _connectionError
-
-    val backOnClick = View.OnClickListener {
+    // subtracts one from _currentPage value and starts request to load new value page
+    override val backOnClick = View.OnClickListener {
 
         _currentPage.value = _currentPage.value!!.minus(1)
         loadCharacterPage(_currentPage.value!!)
     }
 
-    val forwardOnClick = View.OnClickListener {
+    // adds one from _currentPage value and starts request to load new value page
+    override val forwardOnClick = View.OnClickListener {
 
         _currentPage.value = _currentPage.value!!.plus(1)
         loadCharacterPage(_currentPage.value!!)
     }
 
-    val connectionOnClick = View.OnClickListener {
+    // starts request to load 1st page if it hasn't been loaded before, else load _currentPage
+    override val errorOnClick = View.OnClickListener {
 
         if (_currentPage.value!! == -1) {
 
@@ -61,69 +47,58 @@ class CharacterPageViewModel : InjectViewModel() {
         }
     }
 
+    /**
+     *  REST call using Retrofit that attempts to retrieve the first page of Characters.
+     */
     @Suppress("UnstableApiUsage")
     private fun loadCharacterPageOne() {
 
         subscription = apiService.getCharacterPageInfo()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { onRetrieveCharPageStart()  }
-            .doOnTerminate { onRetrieveCharPageFinish() }
+            .doOnSubscribe { onStart()  }
+            .doOnTerminate { onFinish() }
             .subscribe(
-                { result : CharacterPageInfo -> onRetrieveCharPageSuccess(result) },
-                { error -> onRetrieveCharPageError(error) }
+                { result : CharacterPageInfo -> onPageOneSuccess(result) },
+                { error  : Throwable         -> onError(error)           }
             )
     }
 
+    /**
+     *  REST call using Retrofit that attempts to retrieve the page specified of Characters.
+     *
+     *  @param page the page to be retrieved
+     */
     @Suppress("UnstableApiUsage")
     private fun loadCharacterPage(page : Int) {
 
         subscription = apiService.getCharacterPage(page)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe { onRetrieveCharPageStart() }
-                .doOnTerminate { onRetrieveCharPageFinish() }
-                .subscribe(
-                        { result : CharacterPage -> onRetrieveCharacterPageSuccess(result) },
-                        { error : Throwable -> onRetrieveCharPageError(error)}
-                )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { onStart()  }
+            .doOnTerminate { onFinish() }
+            .subscribe(
+                { result : CharacterPage -> onPageSuccess(result) },
+                { error  : Throwable     -> onError(error)        }
+            )
     }
 
-    private fun onRetrieveCharPageStart() {
-
-        _loadingVisibility.value = View.VISIBLE
-        _connectionVisibility.value = View.INVISIBLE
-    }
-
-    private fun onRetrieveCharPageFinish() {
-
-        _loadingVisibility.value = View.INVISIBLE
-        _connectionVisibility.value = View.INVISIBLE
-    }
-
-    private fun onRetrieveCharPageSuccess(result : CharacterPageInfo) {
+    /**
+     *  Ran when first page is requested for the first time.
+     *
+     *  @param result contains info regarding max pages, as well as a page of Characters
+     */
+    private fun onPageOneSuccess(result : CharacterPageInfo) {
 
         _currentPage.value = 1
-        _charList.value = result.results
-        _maxPages.value = result.info.pages
-        if (result.info.count > 0) _currentPage.value = 1
+        _maxPages   .value = result.info.pages
+        _charList   .value = result.results
     }
 
-    private fun onRetrieveCharacterPageSuccess(result : CharacterPage) {
-
-        _charList.value = result.results
-    }
-
-    private fun onRetrieveCharPageError(error : Throwable) {
-
-        when (error) {
-
-            is UnknownHostException   -> _connectionError.value = 0
-            is SocketTimeoutException -> _connectionError.value = 1
-            else                      -> _connectionError.value = 2
-        }
-        _connectionVisibility.value = View.VISIBLE
-    }
+    /**
+     *  @param result contains a page of Characters
+     */
+    private fun onPageSuccess(result : CharacterPage) { _charList.value = result.results }
 
     init {
 

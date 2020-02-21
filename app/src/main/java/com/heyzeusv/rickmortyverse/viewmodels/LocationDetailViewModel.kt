@@ -10,10 +10,12 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class LocationDetailViewModel : InjectViewModel() {
+class LocationDetailViewModel : BaseViewModel() {
 
     @Inject
     lateinit var apiService : ApiService
+
+    private var locationId = 1
 
     private val _location : MutableLiveData<Location> = MutableLiveData()
     val location : LiveData<Location>
@@ -23,8 +25,15 @@ class LocationDetailViewModel : InjectViewModel() {
     val locCharacters : LiveData<List<CharacterNameImage>>
         get() = _locCharacters
 
+    override val errorOnClick = View.OnClickListener {
+
+        loadLocation(locationId)
+    }
+
     @Suppress("UnstableApiUsage")
     fun loadLocation(locId : Int) {
+
+        locationId = locId
 
         subscription = apiService.getLocation(locId)
             .subscribeOn(Schedulers.io())

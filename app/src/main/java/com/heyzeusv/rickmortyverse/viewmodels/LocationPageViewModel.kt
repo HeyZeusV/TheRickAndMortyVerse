@@ -11,80 +11,95 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class LocationPageViewModel : InjectViewModel() {
+class LocationPageViewModel : PageViewModel() {
 
     @Inject
     lateinit var apiService : ApiService
 
+    // holds one page of Locations (20 max)
     private val _locList : MutableLiveData<List<LocationNameType>> = MutableLiveData()
     val locList : LiveData<List<LocationNameType>>
         get() = _locList
 
-    private val _maxPages : MutableLiveData<Int> = MutableLiveData(0)
-    val maxPages : LiveData<Int>
-        get() = _maxPages
-
-    private val _currentPage : MutableLiveData<Int> = MutableLiveData(0)
-    val currentPage : LiveData<Int>
-        get() = _currentPage
-
-    val backOnClick = View.OnClickListener {
+    // subtracts one from _currentPage value and starts request to load new value page
+    override val backOnClick = View.OnClickListener {
 
         _currentPage.value = _currentPage.value!!.minus(1)
         loadLocationPage(_currentPage.value!!)
     }
 
-    val forwardOnClick = View.OnClickListener {
+    // adds one from _currentPage value and starts request to load new value page
+    override val forwardOnClick = View.OnClickListener {
 
         _currentPage.value = _currentPage.value!!.plus(1)
         loadLocationPage(_currentPage.value!!)
     }
 
+    // starts request to load 1st page if it hasn't been loaded before, else load _currentPage
+    override val errorOnClick = View.OnClickListener {
+
+        if (_currentPage.value!! == -1) {
+
+            loadLocationPageOne()
+        } else {
+
+            loadLocationPage(_currentPage.value!!)
+        }
+    }
+
+    /**
+     *  REST call using Retrofit that attempts to retrieve the first page of Locations.
+     */
     @Suppress("UnstableApiUsage")
     private fun loadLocationPageOne() {
 
         subscription = apiService.getLocationPageInfo()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { onRetrieveLocPageStart()  }
-            .doOnTerminate { onRetrieveLocPageFinish() }
+            .doOnSubscribe { onStart()  }
+            .doOnTerminate { onFinish() }
             .subscribe(
-                { result : LocationPageInfo -> onRetrieveLocPageSuccess(result) },
-                { onRetrieveLocPageError() }
+                { result : LocationPageInfo -> onPageOneSuccess(result) },
+                { error  : Throwable        -> onError(error)                   }
             )
     }
 
+
+    /**
+     *  REST call using Retrofit that attempts to retrieve the page specified of Locations.
+     *
+     *  @param page the page to be retrieved
+     */
     @Suppress("UnstableApiUsage")
     private fun loadLocationPage(page : Int) {
 
         subscription = apiService.getLocationPage(page)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { onRetrieveLocPageStart() }
-            .doOnTerminate { onRetrieveLocPageFinish() }
+            .doOnSubscribe { onStart() }
+            .doOnTerminate { onFinish() }
             .subscribe(
-                { result : LocationPage -> onRetrieveLocationPageSuccess(result) },
-                { onRetrieveLocPageError()}
+                { result : LocationPage -> onPageSuccess(result) },
+                { error  : Throwable    -> onError(error)                        }
             )
     }
 
-    private fun onRetrieveLocPageStart() { _loadingVisibility.value = View.VISIBLE }
+    /**
+     *  Ran when first page is requested for the first time.
+     *
+     *  @param result contains info regarding max pages, as well as a page of Locations
+     */
+    private fun onPageOneSuccess(result : LocationPageInfo) {
 
-    private fun onRetrieveLocPageFinish() { _loadingVisibility.value = View.INVISIBLE }
-
-    private fun onRetrieveLocPageSuccess(result : LocationPageInfo) {
-
-        _locList.value  = result.results
-        _maxPages.value = result.info.pages
-        if (result.info.count > 0) _currentPage.value = 1
+        _currentPage.value = 1
+        _maxPages   .value = result.info.pages
+        _locList    .value = result.results
     }
 
-    private fun onRetrieveLocationPageSuccess(result : LocationPage) {
-
-        _locList.value = result.results
-    }
-
-    private fun onRetrieveLocPageError() { }
+    /**
+     *  @param result contains a page of Locations
+     */
+    private fun onPageSuccess(result : LocationPage) { _locList.value = result.results }
 
     init {
 

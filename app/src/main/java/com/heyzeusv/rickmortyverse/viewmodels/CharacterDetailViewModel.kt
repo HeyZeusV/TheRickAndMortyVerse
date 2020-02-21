@@ -11,10 +11,12 @@ import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 import javax.inject.Inject
 
-class CharacterDetailViewModel : InjectViewModel() {
+class CharacterDetailViewModel : BaseViewModel() {
 
     @Inject
     lateinit var apiService : ApiService
+
+    private var characterId = 1
 
     private val _character : MutableLiveData<Character> = MutableLiveData()
     val character : LiveData<Character>
@@ -24,8 +26,15 @@ class CharacterDetailViewModel : InjectViewModel() {
     val charEpisodes : LiveData<List<EpisodeNameCode>>
         get() = _charEpisodes
 
+    override val errorOnClick = View.OnClickListener {
+
+        loadCharacter(characterId)
+    }
+
     @Suppress("UnstableApiUsage")
     fun loadCharacter(charId : Int) {
+
+        characterId = charId
 
         subscription = apiService.getCharacter(charId)
             .subscribeOn(Schedulers.io())
