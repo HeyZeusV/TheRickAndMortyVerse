@@ -11,6 +11,9 @@ import com.heyzeusv.rickmortyverse.viewmodels.HomeViewModel
 import com.heyzeusv.rickmortyverse.R
 import com.heyzeusv.rickmortyverse.databinding.FragmentHomeBinding
 
+/**
+ *  Very basic fragment, just requires DataBinding and attaching ViewModel.
+ */
 class HomeFragment : Fragment() {
 
     // DataBinding

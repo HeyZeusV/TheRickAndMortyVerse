@@ -4,24 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.recyclerview.widget.GridLayoutManager
 import com.heyzeusv.rickmortyverse.viewmodels.CharacterPageViewModel
-import com.heyzeusv.rickmortyverse.R
 import com.heyzeusv.rickmortyverse.models.CharacterNameImage
 import com.heyzeusv.rickmortyverse.controllers.CharacterPageController
-import com.heyzeusv.rickmortyverse.databinding.FragmentTypePageBinding
 import com.heyzeusv.rickmortyverse.models.ShortType
 
-class CharacterPageFragment : Fragment() {
-
-    // DataBinding
-    private lateinit var binding : FragmentTypePageBinding
+/**
+ *  Sets up more specific details, such as LiveData regarding data and Epoxy adapter.
+ */
+class CharacterPageFragment : BasePageFragment() {
 
     // EpoxyController
     private val charPageController = CharacterPageController()
@@ -29,24 +22,23 @@ class CharacterPageFragment : Fragment() {
     // ViewModel
     private val charPageVM : CharacterPageViewModel by viewModels()
 
-    // NavController
-    private lateinit var navController : NavController
-
     @Suppress("UNCHECKED_CAST")
     override fun onCreateView(
         inflater : LayoutInflater, container : ViewGroup?, savedInstanceState : Bundle?) : View? {
+        super.onCreateView(inflater, container, savedInstanceState)
 
-        binding = DataBindingUtil.inflate(inflater,
-            R.layout.fragment_type_page, container, false)
-        binding.lifecycleOwner = activity
-        binding.pageVM         = charPageVM
+        // attaches ViewModel
+        binding.pageVM = charPageVM
 
-        val layoutManager = GridLayoutManager(context, 2)
+        // GridLayout requires span to be set
         charPageController.spanCount = 2
         layoutManager.spanSizeLookup = charPageController.spanSizeLookup
+
+        // attaches Epoxy Controller to RecyclerView
         binding.typePageEpoxy.layoutManager = layoutManager
         binding.typePageEpoxy.adapter       = charPageController.adapter
 
+        // updates data shown by Epoxy when there is change, which occurs when data is emitted
         charPageVM.dataType.observe(viewLifecycleOwner, Observer {
                 charList :  List<ShortType> ->
 
@@ -54,11 +46,5 @@ class CharacterPageFragment : Fragment() {
         })
 
         return binding.root
-    }
-
-    override fun onViewCreated(view : View, savedInstanceState : Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        navController = Navigation.findNavController(view)
     }
 }

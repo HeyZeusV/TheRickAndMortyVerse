@@ -26,7 +26,7 @@ abstract class BaseViewModel : ViewModel() {
     protected lateinit var subscription : Disposable
 
     // visibility of loading ProgressBar while call is being made
-    protected val _loadingVisibility : MutableLiveData<Int> = MutableLiveData()
+    private val _loadingVisibility : MutableLiveData<Int> = MutableLiveData()
     val loadingVisibility : LiveData<Int>
         get() = _loadingVisibility
 

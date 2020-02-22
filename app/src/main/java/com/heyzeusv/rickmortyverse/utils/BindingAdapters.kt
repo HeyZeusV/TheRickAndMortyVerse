@@ -7,6 +7,10 @@ import com.bumptech.glide.Glide
 /**
  *  DataBinding Custom Binding Adapters.
  */
+
+/**
+ *  @param imageUrl URL of image to be placed in ImageView
+ */
 @BindingAdapter("setGlideImage")
 fun ImageView.setGlideImage(imageUrl : String?) {
 

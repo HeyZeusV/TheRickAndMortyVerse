@@ -3,6 +3,9 @@ package com.heyzeusv.rickmortyverse
 import android.app.Application
 import timber.log.Timber
 
+/**
+ *  Used to instantiate anything 
+ */
 class RickMortyVerse : Application() {
 
     override fun onCreate() {

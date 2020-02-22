@@ -8,6 +8,12 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
+/**
+ *  ViewModel for EpisodePageFragment.
+ *
+ *  Sets error handling and back/forward buttons, specific API calls,
+ *  and what to do on successful calls.
+ */
 @Suppress("UnstableApiUsage")
 class EpisodePageViewModel : PageViewModel() {
 
