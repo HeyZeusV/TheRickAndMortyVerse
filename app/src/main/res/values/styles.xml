@@ -2,9 +2,53 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
+        <item name="colorPrimaryVariant">@color/primaryLightColor</item>
+        <item name="colorSecondary">@color/secondaryColor</item>
+        <item name="colorSecondaryVariant">@color/secondaryDarkColor</item>
+        <item name="fontFamily">@font/ubuntu</item>
     </style>
 
+    <style name="HomeButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/home_button_start_end_margin</item>
+        <item name="android:layout_marginEnd">@dimen/home_button_start_end_margin</item>
+        <item name="fontFamily">@font/ubuntu_medium</item>
+        <item name="android:textSize">@dimen/home_button_text_size</item>
+    </style>
+
+    <style name="ErrorButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="fontFamily">@font/ubuntu_medium</item>
+        <item name="android:textSize">@dimen/error_text_size</item>
+    </style>
+
+    <style name="BaseCardView" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">@dimen/cv_corner_radius</item>
+        <item name="cardElevation">@dimen/cv_card_elevation</item>
+    </style>
+
+    <style name="GeneralCardView" parent="BaseCardView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/cv_general_margin</item>
+    </style>
+
+    <style name="DetailCardView" parent="BaseCardView">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="contentPaddingLeft">@dimen/cv_content_pad_start_end</item>
+        <item name="contentPaddingRight">@dimen/cv_content_pad_start_end</item>
+        <item name="contentPaddingTop">@dimen/cv_content_pad_top_bot</item>
+        <item name="contentPaddingBottom">@dimen/cv_content_pad_top_bot</item>
+    </style>
+
+    <style name="DetailTextView" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/detail_text_size</item>
+    </style>
 </resources>

@@ -26,7 +26,7 @@ abstract class BasePageFragment : Fragment() {
     private lateinit var navController : NavController
 
     // GridLayoutManager used by Epoxy
-    protected val layoutManager = GridLayoutManager(context, 2)
+    protected var layoutManager = GridLayoutManager(context, 2)
 
     override fun onCreateView(
         inflater : LayoutInflater, container : ViewGroup?, savedInstanceState : Bundle?) : View? {
@@ -36,6 +36,8 @@ abstract class BasePageFragment : Fragment() {
             R.layout.fragment_type_page, container, false)
         binding.lifecycleOwner = activity
 
+        layoutManager = GridLayoutManager(context, 2)
+
         return binding.root
     }
 
@@ -44,5 +46,4 @@ abstract class BasePageFragment : Fragment() {
 
         navController = Navigation.findNavController(view)
     }
-
 }

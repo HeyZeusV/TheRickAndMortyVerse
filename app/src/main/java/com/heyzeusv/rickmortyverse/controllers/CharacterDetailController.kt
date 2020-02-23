@@ -74,7 +74,7 @@ class CharacterDetailController : Typed2EpoxyController<Character, List<EpisodeN
                 id("Character Episodes")
                 models(models)
                 numViewsToShowOnScreen(2.5f)
-                padding(Carousel.Padding.dp(0, 0, 0, 10, 10))
+                padding(Carousel.Padding.dp(-4, -4, -4, 2, 2))
             }
         }
     }

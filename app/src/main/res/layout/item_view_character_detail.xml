@@ -21,14 +21,8 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.card.MaterialCardView
+            style="@style/DetailCardView"
             android:id="@+id/char_detail_iv_cv_image"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:cardElevation="@dimen/cv_inner_card_elevation"
-            app:contentPaddingBottom="8dp"
-            app:contentPaddingLeft="@dimen/cv_content_pad_start_end"
-            app:contentPaddingRight="@dimen/cv_content_pad_start_end"
-            app:contentPaddingTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -43,161 +37,105 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
+            style="@style/DetailCardView"
             android:id="@+id/char_detail_iv_cv_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            app:cardElevation="@dimen/cv_inner_card_elevation"
-            app:contentPaddingBottom="@dimen/cv_content_pad_top_bot"
-            app:contentPaddingLeft="@dimen/cv_content_pad_start_end"
-            app:contentPaddingRight="@dimen/cv_content_pad_start_end"
-            app:contentPaddingTop="@dimen/cv_content_pad_top_bot"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/char_detail_iv_cv_image">
 
             <TextView
+                style="@style/DetailTextView"
                 android:id="@+id/char_detail_iv_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{@string/char_detail_name(character.name)}"
-                android:textSize="24sp" />
+                android:text="@{@string/char_detail_name(character.name)}" />
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
+            style="@style/DetailCardView"
             android:id="@+id/char_detail_iv_cv_status"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            app:cardElevation="@dimen/cv_inner_card_elevation"
-            app:contentPaddingBottom="@dimen/cv_content_pad_top_bot"
-            app:contentPaddingLeft="@dimen/cv_content_pad_start_end"
-            app:contentPaddingRight="@dimen/cv_content_pad_start_end"
-            app:contentPaddingTop="@dimen/cv_content_pad_top_bot"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/char_detail_iv_cv_name">
 
             <TextView
+                style="@style/DetailTextView"
                 android:id="@+id/char_detail_iv_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{@string/char_detail_status(character.status)}"
-                android:textSize="24sp" />
+                android:text="@{@string/char_detail_status(character.status)}" />
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
+            style="@style/DetailCardView"
             android:id="@+id/char_detail_iv_cv_species"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            app:cardElevation="@dimen/cv_inner_card_elevation"
-            app:contentPaddingBottom="@dimen/cv_content_pad_top_bot"
-            app:contentPaddingLeft="@dimen/cv_content_pad_start_end"
-            app:contentPaddingRight="@dimen/cv_content_pad_start_end"
-            app:contentPaddingTop="@dimen/cv_content_pad_top_bot"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/char_detail_iv_cv_status">
 
             <TextView
+                style="@style/DetailTextView"
                 android:id="@+id/char_detail_iv_species"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{@string/char_detail_species(character.species)}"
-                android:textSize="24sp" />
+                android:text="@{@string/char_detail_species(character.species)}" />
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
+            style="@style/DetailCardView"
             android:id="@+id/char_detail_iv_cv_type"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            app:cardElevation="@dimen/cv_inner_card_elevation"
-            app:contentPaddingBottom="@dimen/cv_content_pad_top_bot"
-            app:contentPaddingLeft="@dimen/cv_content_pad_start_end"
-            app:contentPaddingRight="@dimen/cv_content_pad_start_end"
-            app:contentPaddingTop="@dimen/cv_content_pad_top_bot"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/char_detail_iv_cv_species">
 
             <TextView
+                style="@style/DetailTextView"
                 android:id="@+id/char_detail_iv_type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{@string/char_detail_type(character.type)}"
-                android:textSize="24sp" />
+                android:text="@{@string/char_detail_type(character.type)}" />
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
+            style="@style/DetailCardView"
             android:id="@+id/char_detail_iv_cv_gender"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            app:cardElevation="@dimen/cv_inner_card_elevation"
-            app:contentPaddingBottom="@dimen/cv_content_pad_top_bot"
-            app:contentPaddingLeft="@dimen/cv_content_pad_start_end"
-            app:contentPaddingRight="@dimen/cv_content_pad_start_end"
-            app:contentPaddingTop="@dimen/cv_content_pad_top_bot"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/char_detail_iv_cv_type">
 
             <TextView
+                style="@style/DetailTextView"
                 android:id="@+id/char_detail_iv_gender"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{@string/char_detail_gender(character.gender)}"
-                android:textSize="24sp" />
+                android:text="@{@string/char_detail_gender(character.gender)}" />
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
+            style="@style/DetailCardView"
             android:id="@+id/char_detail_iv_cv_origin"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:onClick="@{originOnClick}"
-            app:cardElevation="@dimen/cv_inner_card_elevation"
-            app:contentPaddingBottom="@dimen/cv_content_pad_top_bot"
-            app:contentPaddingLeft="@dimen/cv_content_pad_start_end"
-            app:contentPaddingRight="@dimen/cv_content_pad_start_end"
-            app:contentPaddingTop="@dimen/cv_content_pad_top_bot"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/char_detail_iv_cv_gender">
 
             <TextView
+                style="@style/DetailTextView"
                 android:id="@+id/char_detail_iv_origin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{@string/char_detail_origin(character.origin.name)}"
-                android:textSize="24sp" />
+                android:text="@{@string/char_detail_origin(character.origin.name)}" />
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
+            style="@style/DetailCardView"
             android:id="@+id/char_detail_iv_cv_location"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:onClick="@{locationOnClick}"
-            app:cardElevation="@dimen/cv_inner_card_elevation"
-            app:contentPaddingBottom="@dimen/cv_content_pad_top_bot"
-            app:contentPaddingLeft="@dimen/cv_content_pad_start_end"
-            app:contentPaddingRight="@dimen/cv_content_pad_start_end"
-            app:contentPaddingTop="@dimen/cv_content_pad_top_bot"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/char_detail_iv_cv_origin">
 
             <TextView
+                style="@style/DetailTextView"
                 android:id="@+id/char_detail_iv_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{@string/char_detail_location(character.location.name)}"
-                android:textSize="24sp" />
+                android:text="@{@string/char_detail_location(character.location.name)}" />
         </com.google.android.material.card.MaterialCardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

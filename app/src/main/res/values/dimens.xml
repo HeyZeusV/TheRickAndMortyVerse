@@ -2,6 +2,12 @@
 <resources>
     <!-- CardView -->
     <dimen name="cv_content_pad_start_end">8dp</dimen>
-    <dimen name="cv_content_pad_top_bot">2dp</dimen>
-    <dimen name="cv_inner_card_elevation">10dp</dimen>
+    <dimen name="cv_content_pad_top_bot">6dp</dimen>
+    <dimen name="cv_card_elevation">5dp</dimen>
+    <dimen name="cv_general_margin">4dp</dimen>
+    <dimen name="cv_corner_radius">5dp</dimen>
+    <dimen name="detail_text_size">24sp</dimen>
+    <dimen name="error_text_size">20sp</dimen>
+    <dimen name="home_button_start_end_margin">16dp</dimen>
+    <dimen name="home_button_text_size">36sp</dimen>
 </resources>

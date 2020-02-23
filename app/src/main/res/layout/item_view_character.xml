@@ -14,35 +14,20 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
-        style="@style/Widget.MaterialComponents.CardView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="2dp"
-        android:layout_marginBottom="2dp"
-        android:onClick="@{onCharClicked}"
-        app:cardCornerRadius="4dp"
-        app:cardUseCompatPadding="true">
+        style="@style/GeneralCardView"
+        android:onClick="@{onCharClicked}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginBottom="4dp">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/character_iv_image"
                 android:layout_width="0dp"
                 android:layout_height="150dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:scaleType="centerCrop"
+                android:layout_margin="10dp"
                 android:contentDescription="@{character.name}"
+                android:scaleType="centerCrop"
                 app:layout_constraintBottom_toTopOf="@+id/character_iv_name"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -52,12 +37,13 @@
 
             <TextView
                 android:id="@+id/character_iv_name"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
                 android:gravity="center"
-                android:lines="2"
+                android:lines="3"
                 android:text="@{character.name}"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"

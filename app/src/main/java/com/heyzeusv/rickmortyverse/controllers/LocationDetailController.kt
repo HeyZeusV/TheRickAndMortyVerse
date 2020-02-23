@@ -63,7 +63,7 @@ class LocationDetailController : Typed2EpoxyController<Location, List<CharacterN
                 id("Location Characters")
                 models(models)
                 numViewsToShowOnScreen(2.5f)
-                padding(Carousel.Padding.dp(0, 0, 0, 10, 10))
+                padding(Carousel.Padding.dp(-4, -4, -4, 2, 2))
             }
         }
     }

@@ -20,4 +20,5 @@
     <string name="connection_no_internet">No Internet Connection…</string>
     <string name="connection_timeout">Response Took Too Long…</string>
     <string name="connection_error">Something Went Wrong…</string>
+    <string name="application_icon">Application Icon</string>
 </resources>
