@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">The Rick And Morty Verse</string>
+    <string name="app_name">The Multiverse Guide for Rick And Morty</string>
     <string name="home_characters">Characters</string>
     <string name="char_detail_name">Name: %s</string>
     <string name="char_detail_status">Status: %s</string>
